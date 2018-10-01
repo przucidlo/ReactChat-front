@@ -1,18 +1,35 @@
-import React, { Component } from 'react';
-import './App.css';
-import ChatForm from './Forms.js';
-import { Button, Container, Row, Col, InputGroupAddon, InputGroup, Input } from 'reactstrap';
+import React from 'react';
+import './misc/App.css';
+//import ChatForm from './Forms.js';
+import { Container, Row, Col } from 'reactstrap';
+import ChatRooms from './ChatRooms';
 
 
 
-export default class Chat extends Component {
-  chatMessages = ["First Message", "Test Message", "What the fuck is this"];
+export default class Chat extends React.Component {
 
-  constructor(){
-    super();
-    this.addNewMessage = this.addNewMessage.bind(this);
+  render(){
+    
+    return(
+      <div className="react-chat">
+        <Container fluid={true}>
+          <Row>
+            <Col sm="2">
+              <h3>Available Rooms:</h3>
+              <ChatRooms/>
+            </Col>
+            <Col sm="8">
+            <h3>Chat:</h3>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
   }
+}
 
+/**
+ * 
   loadChatMessages(){
     console.log("Test");
     return this.chatMessages.map((message) => 
@@ -28,25 +45,4 @@ export default class Chat extends Component {
     this.forceUpdate();
     console.log(this.chatMessages);
   }
-
-  render(){
-    
-    return(
-      <div className="react-chat">
-        <Container fluid={true}>
-          <Row>
-            <Col sm="2">
-              Available Rooms:
-            </Col>
-            <Col sm="8">
-              Chat:
-              {this.loadChatMessages()}
-              <ChatForm addNewMessage={this.addNewMessage} />
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  }
-}
-
+ */

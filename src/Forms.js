@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import Chat from './App.js'
+
 
 export default class ChatForm extends Component{    
     constructor(props){

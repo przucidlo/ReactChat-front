@@ -2,11 +2,22 @@ import React from 'react';
 import './misc/App.css';
 //import ChatForm from './Forms.js';
 import { Container, Row, Col } from 'reactstrap';
-import ChatRooms from './ChatRooms';
+import ChatRoomList from './ChatRoomList';
+import ChatRoom from './ChatRoom';
 
 
 
 export default class Chat extends React.Component {
+
+  constructor(){
+    super();
+
+    this.changeChatRoom = this.changeChatRoom.bind(this);
+  }
+
+  changeChatRoom(id){
+    this.chatRoom.changeChatRoom(id);
+  }
 
   render(){
     
@@ -16,10 +27,11 @@ export default class Chat extends React.Component {
           <Row>
             <Col sm="2">
               <h3>Available Rooms:</h3>
-              <ChatRooms/>
+              <ChatRoomList changeChatRoom={this.changeChatRoom}/>
             </Col>
             <Col sm="8">
-            <h3>Chat:</h3>
+              <h3>Chat:</h3>
+              <ChatRoom ref={instance => {this.chatRoom = instance}}/>
             </Col>
           </Row>
         </Container>

@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import config from './config/config.json';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 
-export default class ChatRooms extends Component{    
+export default class ChatRoomList extends Component{    
     constructor(props){
         super(props)
         this.state = {
@@ -33,7 +33,7 @@ export default class ChatRooms extends Component{
     }
 
     changeRoom(id){
-        alert("Room changed to:" + id);
+        this.props.changeChatRoom(id);
     }
 
     render(){

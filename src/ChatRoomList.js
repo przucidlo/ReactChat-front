@@ -37,13 +37,19 @@ export default class ChatRoomList extends Component{
     }
 
     render(){
+        const isAnyChatAvailable = this.state.chatRooms;
+        let chatRoomsList;
+
+        if(isAnyChatAvailable && isAnyChatAvailable.length > 0){
+            chatRoomsList = this.renderChatRoomsList();
+        }else{
+            chatRoomsList = <h5>It seems there is no ChatRooms :(</h5>
+        }
+
         return(
             <div>
                 <ListGroup>
-                    {
-                    this.state.chatRooms[0] != null &&
-                        this.renderChatRoomsList()
-                    }
+                    {chatRoomsList}
                 </ListGroup>
             </div>
         );

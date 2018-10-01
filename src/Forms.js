@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
-
+import config from './config/config.json';
+import {Form, FormGroup, Input, Button} from 'reactstrap';
 
 export default class ChatForm extends Component{    
     constructor(props){
@@ -16,17 +17,37 @@ export default class ChatForm extends Component{
 
     handleSubmit(event){
         event.preventDefault();
-        this.props.addNewMessage(this.state.value);
+
+        fetch(config.apiUrl + '/chat/chatRoom/addNewMessage', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                'chatRoomId': this.props.chatRoomId,
+                'message': this.state.value
+            })
+        });
+        this.clearInputField();
+    }
+
+    clearInputField(){
+        this.state.value = "";
     }
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                    <input type="submit" value="Send"/>
-                </label>
-            </form>
+            <Form onSubmit={this.handleSubmit}>
+                <FormGroup>
+                    <Input type="textarea" name="email" id="chatMessage" placeholder="Insert your message" value={this.state.value} onChange={this.handleChange}/>
+                </FormGroup>
+                <Button>Submit</Button>
+            </Form>
         );
     }
+
+    /**
+     *  <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="submit" value="Send"/>
+     */
 }

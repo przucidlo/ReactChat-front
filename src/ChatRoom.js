@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
 import {Alert} from 'reactstrap';
+import ChatForm from './Forms';
 
 
 export default class ChatRoom extends Component{    
@@ -8,12 +9,17 @@ export default class ChatRoom extends Component{
         super(props)
         this.state = {
             chatRoomId: -1,
-            chatContent: []
+            chatContent: [],
         }
     }
 
+    changeChatRoom(id){
+        this.setState({chatRoomId: id}, this.retrieveChatRoomContent);
+    }
+
     retrieveChatRoomContent(){
-        fetch(config.apiUrl + "chat/chatRoom/getRecentMessages?id=" + this.state.chatRoomId)
+        setInterval(() => {
+            fetch(config.apiUrl + "chat/chatRoom/getRecentMessages?id=" + this.state.chatRoomId)
             .then(function(response){
                 return response.json();
             })
@@ -21,30 +27,36 @@ export default class ChatRoom extends Component{
                 this.setState({ chatContent: receivedJson});
                 console.log(receivedJson);
             })
-    }
-
-    changeChatRoom(id){
-        this.setState({chatRoomId: id}, this.retrieveChatRoomContent);
+        })
     }
 
     renderChatRoomContent(){
+
         return this.state.chatContent.map((chatContent) => 
-            <p>{chatContent.message}</p>
+            <p key={chatContent.id}>{chatContent.message}</p>
         )
     }
 
     render(){
         let chatContent;
         
-        if(this.state.chatRoomId != -1){
+        if(this.state.chatRoomId !== -1){
             chatContent = this.renderChatRoomContent();
         }else{
-            chatContent = <Alert color="warning">Please select a ChatRoom in menu located at left side of App</Alert>
+            chatContent = <Alert color="warning">Please select a Chat Room.</Alert>
+        }
+
+        const divStyle = {
+            height:400,
+            overflowY: 'scroll'
         }
 
         return(
             <div>
-                {chatContent}
+                <div style={divStyle}>
+                    {chatContent}
+                </div>
+                <ChatForm chatRoomId = {this.state.chatRoomId}/>
             </div>
         );
     }

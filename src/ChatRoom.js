@@ -7,6 +7,8 @@ import './misc/App.css';
 export default class ChatRoom extends Component{    
     constructor(props){
         super(props)
+        
+        this.doesUserUsedScroll = false
         this.state = {
             chatRoomId: -1,
             chatContent: [],
@@ -15,6 +17,7 @@ export default class ChatRoom extends Component{
     }
 
     changeChatRoom(id){
+        this.doesUserUsedScroll = false;
         this.clearChatContent();
         this.restartInterval();
         this.setState({chatRoomId: id}, this.retrieveChatRoomContent);
@@ -42,10 +45,28 @@ export default class ChatRoom extends Component{
                 if(receivedJson !== this.state.chatContent){
                     this.setState({ chatContent: receivedJson});
                 }
+                this.scrollToBottomConditional();
             })
         }, config.chatRefreshRate)
-
         this.setState({interval: interval});
+    }
+
+    /*
+        Keeps scrollbar at the bottom until user scrolls up.
+    */
+    scrollToBottomConditional(){
+        if(!this.doesUserUsedScroll){
+            this.chatContentDiv.scrollTop = this.chatContentDiv.scrollHeight;
+        }
+        this.checkIfUserUsedScroll();
+    }
+
+    checkIfUserUsedScroll(){
+        if(this.chatContentDiv.scrollTop !== this.chatContentDiv.scrollHeight + this.chatContentDiv.clientHeight){
+            this.doesUserUsedScroll = true;
+        }else{
+            this.doesUserUsedScroll = false;
+        }
     }
 
     renderChatRoomContent(){
@@ -78,7 +99,7 @@ export default class ChatRoom extends Component{
 
         return(
             <div>
-                <div style={divStyle}>
+                <div ref={div => {this.chatContentDiv = div;}} style={divStyle}>
                     {chatContent}
                 </div>
                 <ChatForm chatRoomId = {this.state.chatRoomId}/>

@@ -39,9 +39,9 @@ export default class ChatForm extends Component{
         return(
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-                    <Input type="textarea" name="email" id="chatMessage" placeholder="Insert your message" value={this.state.value} onChange={this.handleChange}/>
+                    <Input type="text" id="chatMessage" placeholder="Insert your message" value={this.state.value} onChange={this.handleChange}/>
                 </FormGroup>
-                <Button>Submit</Button>
+                <Button type="submi">Submit</Button>
             </Form>
         );
     }

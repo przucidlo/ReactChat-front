@@ -24,7 +24,7 @@ export default class Chat extends React.Component {
         padding: 30
       }
     }
-
+    //Some comment for git test
     return(
           <div className="react-chat">
             <Navbar color="light" light expand="md">

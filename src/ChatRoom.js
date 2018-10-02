@@ -25,7 +25,6 @@ export default class ChatRoom extends Component{
             })
             .then(receivedJson => {
                 this.setState({ chatContent: receivedJson});
-                console.log(receivedJson);
             })
         })
     }

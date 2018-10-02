@@ -32,7 +32,7 @@ export default class ChatForm extends Component{
     }
 
     clearInputField(){
-        this.state.value = "";
+        this.setState({value: ""});
     }
 
     render(){
@@ -45,9 +45,4 @@ export default class ChatForm extends Component{
             </Form>
         );
     }
-
-    /**
-     *  <input type="text" value={this.state.value} onChange={this.handleChange} />
-        <input type="submit" value="Send"/>
-     */
 }

@@ -72,7 +72,7 @@ export default class ChatRoom extends Component{
     renderChatRoomContent(){
         if(this.notEmpty(this.state.chatContent)){
             return this.state.chatContent.map((chatContent) => 
-                <p key={chatContent.id}>{chatContent.message}</p>
+                <p key={chatContent.id}>{chatContent.timeStamp}|{chatContent.sender}: {chatContent.message}</p>
             )
         }else{
             return <div className="loader"></div>

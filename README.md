@@ -1,1 +1,5 @@
-I'll write README after I complete this project.
+# About
+to-do
+
+# Links
+[Trello](https://trello.com/b/ZZk4bhfT/reactchat)

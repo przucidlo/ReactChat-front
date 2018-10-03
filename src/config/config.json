@@ -1,4 +1,4 @@
 {
-    "apiUrl": "http://pogodeo24.pl:8080/api/",
-    "chatRefreshRate": 1000
+    "apiUrl": "http://localhost:8080/api/",
+    "chatRefreshRate": 250
 }

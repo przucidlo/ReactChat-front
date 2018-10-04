@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
-import {Alert, Col} from 'reactstrap';
-import ChatForm from './Forms';
+import {Alert, Form, FormGroup, Input, Button} from 'reactstrap';
 import './misc/App.css';
 
 export default class ChatRoom extends Component{    
@@ -12,9 +11,16 @@ export default class ChatRoom extends Component{
         this.state = {
             chatRoomId: -1,
             chatContent: [],
-            interval : null
+            interval : null,
+            value: ''
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.sendUserMessage = this.sendUserMessage.bind(this);
     }
+
+    /*
+     *  Chatroom management
+     */
 
     changeChatRoom(id){
         this.doesUserUsedScroll = false;
@@ -35,6 +41,10 @@ export default class ChatRoom extends Component{
         }
     }
 
+    /*
+     *  Displaying Chat content. 
+     */
+
     retrieveChatRoomContent(){
         let interval = setInterval(() => {
             fetch(config.apiUrl + "chat/chatRoom/getRecentMessages?id=" + this.state.chatRoomId)
@@ -51,9 +61,6 @@ export default class ChatRoom extends Component{
         this.setState({interval: interval});
     }
 
-    /*
-        Keeps scrollbar at the bottom until user scrolls up.
-    */
     scrollToBottomConditional(){
         if(!this.doesUserUsedScroll){
             this.chatContentDiv.scrollTop = this.chatContentDiv.scrollHeight;
@@ -83,6 +90,35 @@ export default class ChatRoom extends Component{
         return typeof array !== undefined && array.length > 0;
     }
 
+    /*
+     *  User message handling.
+     */
+
+    handleChange(event){
+        this.setState({value: event.target.value});
+    }
+
+    sendUserMessage(event){
+        event.preventDefault();
+        console.log(this.props.userToken())
+        fetch(config.apiUrl + '/chat/chatRoom/addNewMessage', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                'token': this.props.userToken(),
+                'chatRoomId': this.state.chatRoomId,
+                'message': this.state.value
+            })
+        });
+        this.clearInputField();
+    }
+    
+    clearInputField(){
+        this.setState({value: ''});
+    }
+
     render(){
         let chatContent;
         
@@ -102,7 +138,13 @@ export default class ChatRoom extends Component{
                 <div ref={div => {this.chatContentDiv = div;}} style={divStyle}>
                     {chatContent}
                 </div>
-                <ChatForm chatRoomId = {this.state.chatRoomId}/>
+                
+                <Form onSubmit={this.sendUserMessage}>
+                    <FormGroup>
+                        <Input type="text" id="chatMessage" placeholder="Insert your message" value={this.state.value} onChange={this.handleChange}/>
+                    </FormGroup>
+                    <Button type="submi">Submit</Button>
+                </Form>
             </div>
         );
     }

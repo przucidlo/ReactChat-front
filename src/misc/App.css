@@ -1,6 +1,3 @@
-.App {
-  text-align: center;
-}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -41,4 +38,36 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+.element-padding-bottom{
+  float: none;
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.App-create-chatRoom{
+  padding-top: 20px;
+}
+
+.App-chatRoomList-size{
+
+}
+
+.element-center{
+  text-align: center;
+  padding-top: 15px
+}
+
+.App-create-room-button{
+  padding-top: 15px;
+}
+
+.App-footer{
+  position: absolute;
+  text-align: center;
+  left:0;
+  bottom:0;
+  width: 100%;
 }

@@ -42,7 +42,7 @@ export default class Authentication extends React.Component{
         if(receivedJson.response !== "AUTH_ERROR_USERNAME_TAKEN"){
             this.setState({token: receivedJson.response});
             this.toggle();
-            this.props.app.setState({displayUser: <h5>Logged as: {this.state.username}</h5>})
+            this.props.app.setState({isUserAuthenticated: true})
         }else{
             this.toggleTakenUsernameError();
         }

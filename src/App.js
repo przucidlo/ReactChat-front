@@ -1,6 +1,6 @@
 import React from 'react';
 import './misc/App.css';
-import { Container, Row, Col, Navbar, NavbarBrand, Button, Nav } from 'reactstrap';
+import { Container, Row, Col, Navbar, NavbarBrand, Button, Nav, NavItem } from 'reactstrap';
 import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import Authentication from './Authentication';
@@ -12,11 +12,12 @@ export default class Chat extends React.Component {
   constructor(){
     super();
     this.state = {
-      displayUser: <Button color="primary" onClick={() => {this.authentication.toggle()}}>Login</Button>
+      isUserAuthenticated: false 
     }
 
     this.changeChatRoom = this.changeChatRoom.bind(this);
     this.getUserToken = this.getUserToken.bind(this);
+    this.isUserLogged = this.isUserLogged.bind(this);
   }
 
   changeChatRoom(id){
@@ -27,6 +28,24 @@ export default class Chat extends React.Component {
     return this.authentication.state.token;
   }
 
+  isUserLogged(){
+    if(this.state.isUserAuthenticated){
+      return (
+      <div>
+        <NavItem>
+          <Button color="success" onClick={() => {this.chatRoomList.toggleRoomCreation()}}>Create ChatRoom</Button>
+        </NavItem>
+        <NavItem>
+          Logged as {this.authentication.state.username}
+        </NavItem>
+      </div>)
+    }else{
+      return(
+        <Button color="primary" onClick={() => {this.authentication.toggle()}}>Login</Button>
+      )
+    }
+  }
+
   render(){
   const appStyle = {
       appPadding: {
@@ -35,36 +54,28 @@ export default class Chat extends React.Component {
   }
   
   return(
-          <div className="react-chat">
-            <Navbar color="light" light expand="md">
-              <NavbarBrand href="/">ReactChat</NavbarBrand>
-                <Nav className="ml-auto" navbar>
-                  {this.state.displayUser}
-                </Nav>
-            </Navbar>
+    <div className="react-chat">
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">ReactChat</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            {this.isUserLogged()}
+          </Nav>
+      </Navbar>
             
-            <Container fluid={true} style={appStyle.appPadding}>
-            <Authentication app = {this} ref={instance => {this.authentication = instance}}/>
-              <Row>
-                <Col sm="2">
-                  <h3>Available Rooms:</h3>
-                  <ChatRoomList changeChatRoom={this.changeChatRoom}/>
-                </Col>
-                <Col sm="10">
-                  <h3>Chat:</h3>
-                  <ChatRoom userToken = {this.getUserToken} ref={instance => {this.chatRoom = instance}}/>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+      <Container fluid={true} style={appStyle.appPadding}>
+        <Authentication app = {this} ref={instance => {this.authentication = instance}}/>
+          <Row>
+            <Col sm="4" md="4" lg="4" xl="2">
+              <h4>Available Rooms:</h4>
+              <ChatRoomList userToken = {this.getUserToken} changeChatRoom={this.changeChatRoom} ref={instance => {this.chatRoomList = instance}}/>
+            </Col>
+            <Col sm="8" md="8" lg="8" xl="10">
+              <h4>Chat:</h4>
+              <ChatRoom userToken = {this.getUserToken} ref={instance => {this.chatRoom = instance}}/>
+            </Col>
+          </Row>
+      </Container>
+    </div>
     );
   }
 }
-/**
-                  {
-                  this.authentication.state.token != '' ? (
-                    <h5>this.authentication.state.username</h5>
-                  ) : (
-                    <Button color="primary" onClick={() => {this.authentication.toggle()}}>Login</Button>
-                  )}
-**/

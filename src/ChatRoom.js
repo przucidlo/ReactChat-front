@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
-import {Alert, Form, FormGroup, Input, Button} from 'reactstrap';
+import {Alert, Form, FormGroup, Input, Button, Badge} from 'reactstrap';
 import './misc/App.css';
 
 export default class ChatRoom extends Component{    
@@ -79,7 +79,9 @@ export default class ChatRoom extends Component{
     renderChatRoomContent(){
         if(this.notEmpty(this.state.chatContent)){
             return this.state.chatContent.map((chatContent) => 
-                <p key={chatContent.id}>{chatContent.timeStamp}|{chatContent.sender}: {chatContent.message}</p>
+                <p key={chatContent.id}><a class="text-muted">{chatContent.timeStamp}</a>
+                 <Badge color="primary" pill>{chatContent.sender}</Badge>: 
+                 <a class="font-weight-light">{chatContent.message}</a></p>
             )
         }else{
             return <div className="loader"></div>
@@ -143,7 +145,7 @@ export default class ChatRoom extends Component{
                     <FormGroup>
                         <Input type="text" id="chatMessage" placeholder="Insert your message" value={this.state.value} onChange={this.handleChange}/>
                     </FormGroup>
-                    <Button type="submi">Submit</Button>
+                    <Button color="primary" type="submit">Submit</Button>
                 </Form>
             </div>
         );

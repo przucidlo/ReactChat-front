@@ -16,6 +16,7 @@ export default class ChatRoomList extends Component{
         this.retrieveChatRoomsFromAPI = this.retrieveChatRoomsFromAPI.bind(this);
         this.toggleRoomCreation = this.toggleRoomCreation.bind(this);
         this.createChatRoom = this.createChatRoom.bind(this);
+        this.fixRoomName = this.fixRoomName.bind(this);
         this.handleAPIResponse = this.handleAPIResponse.bind(this);
         this.handleRoomName = this.handleRoomName.bind(this);
         this.handleRoomDesc = this.handleRoomDesc.bind(this);
@@ -44,7 +45,7 @@ export default class ChatRoomList extends Component{
                 },
                 body:JSON.stringify({
                     'token': this.props.userToken(),
-                    'roomName': this.state.roomName,
+                    'roomName': this.fixRoomName(this.state.roomName),
                     'roomDesc': this.state.roomDesc
                 })
             }).then(function(response){
@@ -55,6 +56,13 @@ export default class ChatRoomList extends Component{
         }else{
             this.setState({roomCreationError: <Alert color="danger">Room name can't be empty.</Alert>})
         }
+    }
+
+    fixRoomName(roomName){
+        if(!roomName.startsWith("#")){
+            return '#' + roomName;
+        }
+        return roomName;
     }
 
     handleAPIResponse(receivedJson){

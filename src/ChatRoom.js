@@ -69,10 +69,13 @@ export default class ChatRoom extends Component{
     }
 
     checkIfUserUsedScroll(){
+        console.log("1:" + this.chatContentDiv.scrollTop + "2:" + this.chatContentDiv.scrollHeight + this.chatContentDiv.clientHeight);
         if(this.chatContentDiv.scrollTop !== this.chatContentDiv.scrollHeight + this.chatContentDiv.clientHeight){
             this.doesUserUsedScroll = true;
+            console.log("Set true");
         }else{
             this.doesUserUsedScroll = false;
+            console.log("Set false");
         }
     }
 

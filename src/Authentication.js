@@ -14,10 +14,19 @@ export default class Authentication extends React.Component{
         };
 
         this.authenticate = this.authenticate.bind(this);
+        this.logout = this.logout.bind(this);
         this.handleAPIResponse = this.handleAPIResponse.bind(this);
         this.handleUsernameInputChange = this.handleUsernameInputChange.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleTakenUsernameError = this.toggleTakenUsernameError.bind(this);
+    }
+
+    componentDidMount(){
+        window.addEventListener('beforeunload', this.logout)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('beforeunload', this.logout);
     }
 
     authenticate(event){
@@ -46,6 +55,18 @@ export default class Authentication extends React.Component{
         }else{
             this.toggleTakenUsernameError();
         }
+    }
+
+    logout(){
+        fetch(config.apiUrl + 'logout', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                'token': this.state.token
+            })
+        })
     }
 
     handleUsernameInputChange(event){

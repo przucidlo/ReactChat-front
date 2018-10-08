@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
 import {ListGroup, ListGroupItem, InputGroup, InputGroupAddon, Input, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter, Label, Form} from 'reactstrap';
+import axios from 'axios'
 
 export default class ChatRoomList extends Component{    
     constructor(props){
@@ -41,7 +42,10 @@ export default class ChatRoomList extends Component{
             fetch(config.apiUrl + 'chat/createChatRoom', {
                 method: 'POST',
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials':true,
+                    'Access-Control-Allow-Methods':'POST, GET'
                 },
                 body:JSON.stringify({
                     'token': this.props.userToken(),
@@ -96,14 +100,11 @@ export default class ChatRoomList extends Component{
     */
     retrieveChatRoomsFromAPI(){
         setInterval(() => {
-            fetch(config.apiUrl + "chat/getChatRoomList")
-            .then(function(response){
-                return response.json();
-            })
-            .then(receivedJson => {
-                this.setState({ chatRooms: receivedJson});
+            axios.get(config.apiUrl + 'chat/getChatRoomList').then(res => {
+                console.log(res);
             })
         }, config.chatRoomListRefreshRate);
+        clearInterval()
     }
 
     renderChatRoomsList(){

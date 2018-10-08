@@ -9,7 +9,7 @@ export default class Authentication extends React.Component{
         this.state = {
             modal: false,
             username: '',
-            token: '',
+            password: '',
             usernameTakenError: false
         };
 
@@ -17,28 +17,26 @@ export default class Authentication extends React.Component{
         this.logout = this.logout.bind(this);
         this.handleAPIResponse = this.handleAPIResponse.bind(this);
         this.handleUsernameInputChange = this.handleUsernameInputChange.bind(this);
+        this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleTakenUsernameError = this.toggleTakenUsernameError.bind(this);
     }
 
-    componentDidMount(){
-        window.addEventListener('beforeunload', this.logout)
-    }
-
-    componentWillUnmount(){
-        window.removeEventListener('beforeunload', this.logout);
-    }
+    /*
+        Account authentication
+    */
 
     authenticate(event){
         event.preventDefault();
 
-        fetch(config.apiUrl + 'authenticate', {
+        fetch(config.apiUrl + 'authentication', {
             method: 'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body:JSON.stringify({
-                'username': this.state.username
+                'username': this.state.username,
+                'password': this.state.password
             })
         }).then(function(response){
             return response.json();
@@ -48,14 +46,13 @@ export default class Authentication extends React.Component{
     }
 
     handleAPIResponse(receivedJson){
-        if(receivedJson.response !== "AUTH_ERROR_USERNAME_TAKEN"){
-            this.setState({token: receivedJson.response});
-            this.toggle();
-            this.props.app.setState({isUserAuthenticated: true})
-        }else{
-            this.toggleTakenUsernameError();
-        }
+        console.log(receivedJson);
     }
+
+    /*
+                this.toggle();
+            this.props.app.setState({isUserAuthenticated: true})
+    */
 
     logout(){
         fetch(config.apiUrl + 'logout', {
@@ -69,8 +66,16 @@ export default class Authentication extends React.Component{
         })
     }
 
+    /*
+        Input handling and other DOM actions
+    */
+
     handleUsernameInputChange(event){
         this.setState({username: event.target.value})
+    }
+
+    handlePasswordInputChange(event){
+        this.setState({password: event.target.value})
     }
 
     toggle(){
@@ -99,6 +104,7 @@ export default class Authentication extends React.Component{
                 {usernameTakenError}
                 <Label for="Authentication">Your username:</Label>
                 <Input type="text" name="username" id="usernameInput" placeholder="Insert your username" value={this.state.username} onChange={this.handleUsernameInputChange}/>
+                <Input type="password" name="password" id="passwordInput" placeholder="Insert your username" value={this.state.password} onChange={this.handlePasswordInputChange}/>
               </ModalBody>
               <ModalFooter>
                 <Form onSubmit={this.authenticate}>

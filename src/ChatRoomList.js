@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
 import {ListGroup, ListGroupItem, InputGroup, InputGroupAddon, Input, Button, Alert, Modal, ModalHeader, ModalBody, ModalFooter, Label, Form} from 'reactstrap';
-import axios from 'axios'
 
 export default class ChatRoomList extends Component{    
     constructor(props){
@@ -100,8 +99,15 @@ export default class ChatRoomList extends Component{
     */
     retrieveChatRoomsFromAPI(){
         setInterval(() => {
-            axios.get(config.apiUrl + 'chat/getChatRoomList').then(res => {
-                console.log(res);
+            fetch(config.apiUrl + "chatrooms/public", {
+                method: 'GET',
+                credentials: 'include'
+            })
+            .then(function(response){
+                return response.json();
+            })
+            .then(receivedJson => {
+                this.setState({ chatRooms: receivedJson});
             })
         }, config.chatRoomListRefreshRate);
         clearInterval()

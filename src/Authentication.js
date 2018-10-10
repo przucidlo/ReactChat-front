@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import config from './config/config.json';
-
+import Cookies from 'js-cookie'
 
 export default class Authentication extends React.Component{
     constructor(props){
@@ -14,8 +14,8 @@ export default class Authentication extends React.Component{
         };
 
         this.authenticate = this.authenticate.bind(this);
-        this.logout = this.logout.bind(this);
-        this.handleAPIResponse = this.handleAPIResponse.bind(this);
+
+        this.handleAPIAuthenticationResponse = this.handleAPIAuthenticationResponse.bind(this);
         this.handleUsernameInputChange = this.handleUsernameInputChange.bind(this);
         this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -29,42 +29,32 @@ export default class Authentication extends React.Component{
     authenticate(event){
         event.preventDefault();
 
-        fetch(config.apiUrl + 'authentication', {
+        fetch("http://localhost:8080/api/authentication", {
             method: 'POST',
+            credentials: 'include',
             headers:{
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body:JSON.stringify({
-                'username': this.state.username,
-                'password': this.state.password
-            })
+            body: new URLSearchParams("username=" + this.state.username + "&password=" + this.state.password)
         }).then(function(response){
-            return response.json();
-        }).then(receivedJson => {
-            this.handleAPIResponse(receivedJson);
+            return console.log(response);
         })
     }
 
-    handleAPIResponse(receivedJson){
+    checkIfSessionCookieIsPresent(){
+
+    }
+
+    restorePreviousAuthentication(sessionId){
+
+    }
+
+    handleAPIAuthenticationResponse(receivedJson){
         console.log(receivedJson);
     }
 
-    /*
-                this.toggle();
-            this.props.app.setState({isUserAuthenticated: true})
-    */
 
-    logout(){
-        fetch(config.apiUrl + 'logout', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                'token': this.state.token
-            })
-        })
-    }
+
 
     /*
         Input handling and other DOM actions
@@ -104,7 +94,8 @@ export default class Authentication extends React.Component{
                 {usernameTakenError}
                 <Label for="Authentication">Your username:</Label>
                 <Input type="text" name="username" id="usernameInput" placeholder="Insert your username" value={this.state.username} onChange={this.handleUsernameInputChange}/>
-                <Input type="password" name="password" id="passwordInput" placeholder="Insert your username" value={this.state.password} onChange={this.handlePasswordInputChange}/>
+                <Label for="Authentication">Your password:</Label>
+                <Input type="password" name="password" id="passwordInput" placeholder="Insert your password" value={this.state.password} onChange={this.handlePasswordInputChange}/>
               </ModalBody>
               <ModalFooter>
                 <Form onSubmit={this.authenticate}>

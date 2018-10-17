@@ -29,20 +29,25 @@ export default class Authentication extends React.Component{
     authenticate(event){
         event.preventDefault();
 
-        fetch("http://localhost:8080/api/authentication", {
-            method: 'POST',
-            credentials: 'include',
-            headers:{
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams("username=" + this.state.username + "&password=" + this.state.password)
-        }).then(function(response){
-            return console.log(response);
-        })
+        if(this.checkIfSessionCookieIsPresent()){
+            fetch("http://localhost:8080/api/authentication", {
+                method: 'POST',
+                credentials: 'include',
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams("username=" + this.state.username + "&password=" + this.state.password)
+            }).then(function(response){
+                return console.log(response);
+            })
+        }
     }
 
     checkIfSessionCookieIsPresent(){
+        let sessionCookie = Cookies.get('JSESSIONID');
+        console.log("Session cookie: " + sessionCookie);
 
+        return true;
     }
 
     restorePreviousAuthentication(sessionId){

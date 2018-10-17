@@ -4,6 +4,7 @@ import { Container, Row, Col, Navbar, NavbarBrand, Button, Nav, NavItem } from '
 import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import Authentication from './Authentication';
+import AccountRegister from './AccountRegister';
 
 
 
@@ -41,7 +42,10 @@ export default class Chat extends React.Component {
       </div>)
     }else{
       return(
-        <Button color="primary" onClick={() => {this.authentication.toggle()}}>Login</Button>
+        <div>
+          <Button color="primary" onClick={() => {this.authentication.toggle()}}>Login</Button>
+          <Button color="success" onClick={() => {this.accountRegister.toggle()}}>Register</Button>
+        </div>
       )
     }
   }
@@ -64,6 +68,7 @@ export default class Chat extends React.Component {
             
       <Container fluid={true} style={appStyle.appPadding}>
         <Authentication app = {this} ref={instance => {this.authentication = instance}}/>
+        <AccountRegister ref={instance => {this.accountRegister = instance}}/>
           <Row>
             <Col sm="4" md="4" lg="4" xl="2">
               <h4>Available Rooms:</h4>

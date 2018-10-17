@@ -41,7 +41,10 @@ export default class ChatRoomList extends Component{
             fetch(config.apiUrl + 'chat/createChatRoom', {
                 method: 'POST',
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials':true,
+                    'Access-Control-Allow-Methods':'POST, GET'
                 },
                 body:JSON.stringify({
                     'token': this.props.userToken(),
@@ -96,7 +99,10 @@ export default class ChatRoomList extends Component{
     */
     retrieveChatRoomsFromAPI(){
         setInterval(() => {
-            fetch(config.apiUrl + "chat/getChatRoomList")
+            fetch(config.apiUrl + "chatrooms/public", {
+                method: 'GET',
+                credentials: 'include'
+            })
             .then(function(response){
                 return response.json();
             })
@@ -104,6 +110,7 @@ export default class ChatRoomList extends Component{
                 this.setState({ chatRooms: receivedJson});
             })
         }, config.chatRoomListRefreshRate);
+        clearInterval()
     }
 
     renderChatRoomsList(){

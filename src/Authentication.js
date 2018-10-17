@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import config from './config/config.json';
-
+import Cookies from 'js-cookie'
 
 export default class Authentication extends React.Component{
     constructor(props){
@@ -9,68 +9,68 @@ export default class Authentication extends React.Component{
         this.state = {
             modal: false,
             username: '',
-            token: '',
+            password: '',
             usernameTakenError: false
         };
 
         this.authenticate = this.authenticate.bind(this);
-        this.logout = this.logout.bind(this);
-        this.handleAPIResponse = this.handleAPIResponse.bind(this);
+
+        this.handleAPIAuthenticationResponse = this.handleAPIAuthenticationResponse.bind(this);
         this.handleUsernameInputChange = this.handleUsernameInputChange.bind(this);
+        this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleTakenUsernameError = this.toggleTakenUsernameError.bind(this);
     }
 
-    componentDidMount(){
-        window.addEventListener('beforeunload', this.logout)
-    }
-
-    componentWillUnmount(){
-        window.removeEventListener('beforeunload', this.logout);
-    }
+    /*
+        Account authentication
+    */
 
     authenticate(event){
         event.preventDefault();
 
-        fetch(config.apiUrl + 'authenticate', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                'username': this.state.username
+        if(this.checkIfSessionCookieIsPresent()){
+            fetch("http://localhost:8080/api/authentication", {
+                method: 'POST',
+                credentials: 'include',
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams("username=" + this.state.username + "&password=" + this.state.password)
+            }).then(function(response){
+                return console.log(response);
             })
-        }).then(function(response){
-            return response.json();
-        }).then(receivedJson => {
-            this.handleAPIResponse(receivedJson);
-        })
-    }
-
-    handleAPIResponse(receivedJson){
-        if(receivedJson.response !== "AUTH_ERROR_USERNAME_TAKEN"){
-            this.setState({token: receivedJson.response});
-            this.toggle();
-            this.props.app.setState({isUserAuthenticated: true})
-        }else{
-            this.toggleTakenUsernameError();
         }
     }
 
-    logout(){
-        fetch(config.apiUrl + 'logout', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                'token': this.state.token
-            })
-        })
+    checkIfSessionCookieIsPresent(){
+        let sessionCookie = Cookies.get('JSESSIONID');
+        console.log("Session cookie: " + sessionCookie);
+
+        return true;
     }
+
+    restorePreviousAuthentication(sessionId){
+
+    }
+
+    handleAPIAuthenticationResponse(receivedJson){
+        console.log(receivedJson);
+    }
+
+
+
+
+    /*
+        Input handling and other DOM actions
+    */
 
     handleUsernameInputChange(event){
         this.setState({username: event.target.value})
+    }
+
+    handlePasswordInputChange(event){
+        this.setState({password: event.target.value})
     }
 
     toggle(){
@@ -99,6 +99,8 @@ export default class Authentication extends React.Component{
                 {usernameTakenError}
                 <Label for="Authentication">Your username:</Label>
                 <Input type="text" name="username" id="usernameInput" placeholder="Insert your username" value={this.state.username} onChange={this.handleUsernameInputChange}/>
+                <Label for="Authentication">Your password:</Label>
+                <Input type="password" name="password" id="passwordInput" placeholder="Insert your password" value={this.state.password} onChange={this.handlePasswordInputChange}/>
               </ModalBody>
               <ModalFooter>
                 <Form onSubmit={this.authenticate}>

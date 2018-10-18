@@ -1,6 +1,6 @@
 import React from 'react';
 import './misc/App.css';
-import { Container, Row, Col, Navbar, NavbarBrand, Button, Nav, NavItem } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import Authentication from './Authentication';
@@ -29,21 +29,7 @@ export default class Chat extends React.Component {
   }
 
   isUserLogged(){
-    if(this.state.isUserAuthenticated){
-      return (
-      <div>
-        <NavItem>
-          <Button color="success" onClick={() => {this.chatRoomList.toggleRoomCreation()}}>Create ChatRoom</Button>
-        </NavItem>
-        <NavItem>
-          Logged as {this.authentication.state.username}
-        </NavItem>
-      </div>)
-    }else{
-      return(
-        <Button color="primary" onClick={() => {this.authentication.toggle()}}>Login</Button>
-      )
-    }
+
   }
 
   render(){
@@ -54,27 +40,10 @@ export default class Chat extends React.Component {
   }
   
   return(
-    <div className="react-chat">
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">ReactChat</NavbarBrand>
-          <Nav className="ml-auto" navbar>
-            {this.isUserLogged()}
-          </Nav>
-      </Navbar>
-            
-      <Container fluid={true} style={appStyle.appPadding}>
-        <Authentication app = {this} ref={instance => {this.authentication = instance}}/>
-          <Row>
-            <Col sm="4" md="4" lg="4" xl="2">
-              <h4>Available Rooms:</h4>
-              <ChatRoomList userToken = {this.getUserToken} changeChatRoom={this.changeChatRoom} ref={instance => {this.chatRoomList = instance}}/>
-            </Col>
-            <Col sm="8" md="8" lg="8" xl="10">
-              <h4>Chat:</h4>
-              <ChatRoom userToken = {this.getUserToken} ref={instance => {this.chatRoom = instance}}/>
-            </Col>
-          </Row>
-      </Container>
+    <div className="react-chat bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-border">
+        <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
+      </nav>
     </div>
     );
   }

@@ -1,27 +1,15 @@
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+body{
+  background-color: #2e343a;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.chat-logo{
+  color:#c300c3 !important;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.navbar-border{
+  border-bottom-style: solid;
+  border-color: #870087;
+  border-width: 2px;
 }
 
 .loader {

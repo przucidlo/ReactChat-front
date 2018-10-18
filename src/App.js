@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import Authentication from './Authentication';
+import AccountRegister from './AccountRegister';
 
 
 
@@ -29,7 +30,6 @@ export default class Chat extends React.Component {
   }
 
   isUserLogged(){
-
   }
 
   render(){

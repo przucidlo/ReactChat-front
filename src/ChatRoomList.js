@@ -124,42 +124,32 @@ export default class ChatRoomList extends Component{
     }
 
     render(){
-        const isAnyChatAvailable = this.state.chatRooms;
-        let chatRoomsList;
-
-        if(isAnyChatAvailable && isAnyChatAvailable.length > 0){
-            chatRoomsList = this.renderChatRoomsList();
-        }else{
-            chatRoomsList = <div className="loader"></div>
-        }
-
         return(
-            <div id="room-creation-modal">
-                <Modal isOpen={this.state.modal} toggle={this.toggleRoomCreation}>
-                    <ModalHeader toggle={this.toggleRoomCreation}>Create chatroom</ModalHeader>
-                        <ModalBody>
-                            {this.state.roomCreationError}
-                            <InputGroup>
-                                <div>
-                                    <Label>Room name:</Label>
-                                    <Input type="text" name="roomname" id="roomnameInput" placeholder="Insert your chatroom name" value={this.state.roomName} onChange={this.handleRoomName}/>
-                                </div>
-                                <div>
-                                    <Label>Room description:</Label>
-                                    <Input type="text" name="roomdesc" id="roomsecInput" placeholder="Insert your chatroom description" value={this.state.roomDesc} onChange={this.handleRoomDesc}/>
-                                </div>
-                            </InputGroup>
-                            <Form className="App-create-room-button" onSubmit={this.createChatRoom}>
-                                <Button color="primary" type="submit">Create</Button>
-                            </Form>
-                        </ModalBody>
-                    <ModalFooter>
-                        Keep in mind that we don't take any responsibility for content you post in your chatroom.
-                    </ModalFooter>
-                </Modal>
-                <ListGroup className="App-chatRoomList-size">
-                    {chatRoomsList}
-                </ListGroup>
+            <div id="chat-room-list h-100">
+                <div class="list-group list-group-dark">
+                    <li class="list-group-item list-group-border-bottom">
+                        Public
+                    </li>
+                    <div class="list-elements">
+                        <div class="list-group">
+                            <li class="list-group-item list-group-border-bottom">
+                                #Default
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group list-group-dark">
+                    <li class="list-group-item list-group-border-bottom">
+                        Private
+                    </li>
+                    <div class="list-elements">
+                        <div class="list-group">
+                            <li class="list-group-item list-group-border-bottom">
+                                #Default
+                            </li>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

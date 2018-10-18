@@ -32,32 +32,26 @@ export default class Chat extends React.Component {
   isUserLogged(){
   }
 
-  render(){
-  const appStyle = {
-      appPadding: {
-        padding: 30
-    }
-  }
-  
-  return(
-    <div className="react-chat bg-dark full-screen">
-      <nav class="navbar navbar-dark bg-dark navbar-border">
-        <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
-        <a class="navbar-nav">
-          <img src={notification} width="30" height="30" class="" alt=""/>
-        </a>
-      </nav>
-      <div className="container-fluid h-100">
-        <div className="row h-100">
-          <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 left-bar-column">
-            RoomList
-          </div>
-          <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column">
-            Content
+  render(){  
+    return(
+      <div className="react-chat bg-dark full-screen">
+        <nav class="navbar navbar-dark bg-dark navbar-border">
+          <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
+          <a class="navbar-nav">
+            <img src={notification} width="30" height="30"/>
+          </a>
+        </nav>
+        <div className="container-fluid h-100">
+          <div className="row h-100">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 left-bar-column">
+              <ChatRoomList class="h-100"/>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column">
+              Content
+            </div>
           </div>
         </div>
       </div>
-    </div>
     );
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import config from './config/config.json';
-import Cookies from 'js-cookie'
 
 export default class Authentication extends React.Component{
     constructor(props){
@@ -44,8 +43,6 @@ export default class Authentication extends React.Component{
     }
 
     checkIfSessionCookieIsPresent(){
-        let sessionCookie = Cookies.get('JSESSIONID');
-        console.log("Session cookie: " + sessionCookie);
 
         return true;
     }

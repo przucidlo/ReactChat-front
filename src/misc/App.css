@@ -1,5 +1,26 @@
-body{
+html,body{
   background-color: #2e343a;
+  padding:0 !important;
+  color:white;
+  overflow: hidden;
+}
+
+.full-screen{
+  height: 100vh !important; 
+}
+
+.content-column{
+  background-color: #2e343a !important;
+}
+
+.left-bar-column{
+  background-color: #262c32 !important;
+  
+}
+
+.notification-bell{
+  fill: white;
+  color: white;
 }
 
 .chat-logo{

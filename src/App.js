@@ -1,6 +1,5 @@
 import React from 'react';
 import './misc/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import Authentication from './Authentication';
@@ -43,11 +42,11 @@ export default class Chat extends React.Component {
         </nav>
         <div className="container-fluid h-100">
           <div className="row h-100">
-            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 left-bar-column">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 left-bar-column remove-padding">
               <ChatRoomList class="h-100"/>
             </div>
-            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column">
-              Content
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column h-100 remove-padding">
+              <ChatRoom class="h-100"/>
             </div>
           </div>
         </div>
@@ -55,3 +54,5 @@ export default class Chat extends React.Component {
     );
   }
 }
+
+//

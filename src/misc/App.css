@@ -2,11 +2,15 @@ html,body{
   background-color: #2e343a;
   padding:0 !important;
   color:white;
-  overflow: hidden;
 }
 
 .full-screen{
-  height: 100vh !important; 
+  height: calc(100vh - 60px) !important; 
+}
+
+.remove-padding{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .notification-bell{
@@ -30,18 +34,14 @@ html,body{
 
 .left-bar-column{
   background-color: #262c32 !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
 }
 
 .list-group-dark .list-group-item{
   background-color: #23292f;
-  
 }
 
 .list-elements .list-group{
   background-color: #262c32 !important;
-  height: 42vh;
 }
 
 .list-elements .list-group-item{
@@ -60,6 +60,41 @@ html,body{
   border-bottom-style: none !important;
   border-color: #870087;
   border-width: 1px;
+}
+
+.list-group-arrow{
+  float: right;
+}
+
+.chat-room-messages{
+
+}
+
+.chat-room-form{
+
+}
+
+.form-control{
+  background-color: #2a3138 !important;
+  color: white !important;
+  border-color: #870087;
+}
+
+textarea:focus, 
+textarea.form-control:focus, 
+input.form-control:focus, 
+input[type=text]:focus, 
+input[type=password]:focus, 
+input[type=email]:focus, 
+input[type=number]:focus, 
+[type=text].form-control:focus, 
+[type=password].form-control:focus, 
+[type=email].form-control:focus, 
+[type=tel].form-control:focus, 
+[contenteditable].form-control:focus {
+  box-shadow: inset 1px 1px 1px #c300c3;
+  border-color: #c300c3;
+  outline: 0 none;
 }
 
 .loader {

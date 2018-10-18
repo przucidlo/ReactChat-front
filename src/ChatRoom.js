@@ -139,17 +139,19 @@ export default class ChatRoom extends Component{
         }
 
         return(
-            <div>
-                <div ref={div => {this.chatContentDiv = div;}} style={divStyle}>
-                    {chatContent}
+            <div class="container-fluid d-flex flex-column h-100">
+                <div class="row flex-fill d-flex">
+                    <div class="col">
+                        .
+                    </div>
                 </div>
-                
-                <Form onSubmit={this.sendUserMessage}>
-                    <FormGroup>
-                        <Input type="text" id="chatMessage" placeholder="Insert your message" value={this.state.value} onChange={this.handleChange}/>
-                    </FormGroup>
-                    <Button color="primary" type="submit">Submit</Button>
-                </Form>
+                <div class="row flex-shrink-0">
+                    <div class="col">
+                        <form>
+                            <input type="message" class="form-control" placeholder="Insert message..."></input>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

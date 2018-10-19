@@ -7,6 +7,7 @@ import AccountRegister from './AccountRegister';
 
 import notification from './graphics/round-notifications-24px.svg';
 import sampleAvatar from './graphics/sample_avatar.svg'
+import DocumentTitle from 'react-document-title'
 
 
 export default class Chat extends React.Component {

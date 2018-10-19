@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import config from './config/config.json';
 import {Alert, Form, FormGroup, Input, Button, Badge} from 'reactstrap';
 import './misc/App.css';
-import sampleAvatar from './graphics/sample_avatar.svg'
+import sampleAvatar from './graphics/sample_avatar.png'
 
 export default class ChatRoom extends Component{    
     constructor(props){

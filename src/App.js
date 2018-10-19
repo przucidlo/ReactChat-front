@@ -6,8 +6,8 @@ import Authentication from './Authentication';
 import AccountRegister from './AccountRegister';
 
 import notification from './graphics/round-notifications-24px.svg';
-import sampleAvatar from './graphics/sample_avatar.svg'
-import DocumentTitle from 'react-document-title'
+import sampleAvatar from './graphics/sample_avatar.png'
+import UserProfile from './UserProfile';
 
 
 export default class Chat extends React.Component {
@@ -41,7 +41,7 @@ export default class Chat extends React.Component {
           <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
           <div>
             <img src={notification} class="navbar-notification-bell"/>
-            <img src={sampleAvatar} class="navbar-avatar"/>  
+            <UserProfile width="32" height="32"/>
           </div>
         </nav>
         <div className="container-fluid h-100">

@@ -13,9 +13,16 @@ html,body{
   padding-right: 0px !important;
 }
 
-.notification-bell{
-  fill: white;
-  color: white;
+.navbar-notification-bell{
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+
+.navbar-avatar{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 
 .chat-logo{
@@ -34,6 +41,7 @@ html,body{
 
 .left-bar-column{
   background-color: #262c32 !important;
+  overflow-y: auto;
 }
 
 .list-group-dark .list-group-item{
@@ -67,7 +75,7 @@ html,body{
 }
 
 .chat-room-messages{
-
+  overflow-y: auto;
 }
 
 .chat-room-form{
@@ -78,6 +86,32 @@ html,body{
   background-color: #2a3138 !important;
   color: white !important;
   border-color: #870087;
+}
+
+.chat-room-message-avatar{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.chat-room-message{
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+  letter-spacing: 0.005px;
+
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #37414b;
+}
+
+.chat-room-message-content{
+  padding-left: 16px;
+}
+
+.chat-room-message-date{
+  font-size: 12px;
 }
 
 textarea:focus, 
@@ -111,36 +145,4 @@ input[type=number]:focus,
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-
-.element-padding-bottom{
-  float: none;
-  display: table-cell;
-  vertical-align: bottom;
-}
-
-.App-create-chatRoom{
-  padding-top: 20px;
-}
-
-.App-chatRoomList-size{
-
-}
-
-.element-center{
-  text-align: center;
-  padding-top: 15px
-}
-
-.App-create-room-button{
-  padding-top: 15px;
-}
-
-.App-footer{
-  position: absolute;
-  text-align: center;
-  left:0;
-  bottom:0;
-  width: 100%;
 }

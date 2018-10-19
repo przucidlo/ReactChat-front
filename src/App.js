@@ -4,7 +4,9 @@ import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import Authentication from './Authentication';
 import AccountRegister from './AccountRegister';
+
 import notification from './graphics/round-notifications-24px.svg';
+import sampleAvatar from './graphics/sample_avatar.svg'
 
 
 export default class Chat extends React.Component {
@@ -36,9 +38,10 @@ export default class Chat extends React.Component {
       <div className="react-chat bg-dark full-screen">
         <nav class="navbar navbar-dark bg-dark navbar-border">
           <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
-          <a class="navbar-nav">
-            <img src={notification} width="30" height="30"/>
-          </a>
+          <div>
+            <img src={notification} class="navbar-notification-bell"/>
+            <img src={sampleAvatar} class="navbar-avatar"/>  
+          </div>
         </nav>
         <div className="container-fluid h-100">
           <div className="row h-100">

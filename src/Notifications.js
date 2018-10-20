@@ -18,7 +18,8 @@ export default class Notifications extends React.Component{
     }
 
     render(){
-        let notificationWindow = ("");
+        let notificationWindow;
+        
         if(this.state.isNotificationWindowOpen){
             notificationWindow = 
             (            

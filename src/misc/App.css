@@ -17,6 +17,11 @@ html,body{
   float: right;
 }
 
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #870087 !important;
+  border-color: #870087;
+}
+
 .navbar-notification-bell{
   width: 32px;
   height: 32px;
@@ -152,6 +157,16 @@ input[type=number]:focus,
   z-index: 99 !important;
   right: 6px;
   top:48px;
+}
+
+.chat-room-list-management{
+  background-color: #23292f !important;
+  border-color: #37414b;
+  text-align: left;
+}
+
+.chat-room-list-management-checkbox{
+    margin: 0px 0px 6px 32px;
 }
 
 .loader {

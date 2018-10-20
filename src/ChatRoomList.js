@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import config from './config/config.json';
 import arrowUp from './graphics/arrows/arrow_up.svg';
 import addCircle from './graphics/add-circle.svg';
+import ChatRoomManager from './ChatRoomManager';
 
 export default class ChatRoomList extends Component{    
     constructor(props){
@@ -85,7 +86,7 @@ export default class ChatRoomList extends Component{
                         Public 
                         <img src={arrowUp} class="list-group-arrow" id="public_arrow" 
                         style={{transform: `rotate(${this.state.publicArrowRotation}deg)`}} onClick={this.hidePublicRooms}/>
-                        <img src={addCircle} class="list-group-add-circle"/>
+                        <ChatRoomManager/>
                     </li>
                     {this.getPublicChatRooms()}
                 </div>
@@ -94,7 +95,7 @@ export default class ChatRoomList extends Component{
                         Private 
                         <img src={arrowUp} class="list-group-arrow" id="private_arrow"
                         style={{transform: `rotate(${this.state.privateArrowRotation}deg)`}} onClick={this.hidePrivateRooms}></img>
-                        <img src={addCircle} class="list-group-add-circle"/>
+                        <ChatRoomManager onlyCreate={true}/>
                     </li>
                     {this.getPrivateChatRooms()}
                 </div>

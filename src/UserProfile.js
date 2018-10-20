@@ -32,7 +32,6 @@ export default class UserProfile extends Component{
                             </div>
                         </ModalBody>
                         <ModalFooter className="user-profile">
-
                         </ModalFooter>
                     </Modal>
                 </div>

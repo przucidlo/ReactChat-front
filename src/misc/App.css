@@ -20,8 +20,6 @@ html,body{
 }
 
 .navbar-avatar{
-  width: 32px;
-  height: 32px;
   border-radius: 50%;
 }
 
@@ -82,12 +80,8 @@ html,body{
   overflow-y: auto;
 }
 
-.chat-room-form{
-
-}
-
 .form-control{
-  background-color: #2a3138 !important;
+  background-color: #37414b !important;
   color: white !important;
   border-color: #870087;
 }
@@ -134,6 +128,17 @@ input[type=number]:focus,
   box-shadow: inset 1px 1px 1px #c300c3;
   border-color: #c300c3;
   outline: 0 none;
+}
+
+.user-profile{
+  background-color: #23292f !important;
+  text-align: center;
+  border-color: #37414b;
+}
+
+.user-profile-content{
+  padding-top: 16px;
+  
 }
 
 .loader {

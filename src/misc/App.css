@@ -13,6 +13,10 @@ html,body{
   padding-right: 0px !important;
 }
 
+.float-right{
+  float: right;
+}
+
 .navbar-notification-bell{
   width: 32px;
   height: 32px;
@@ -138,7 +142,16 @@ input[type=number]:focus,
 
 .user-profile-content{
   padding-top: 16px;
-  
+}
+
+.notification-window{
+  position: absolute;
+  background-color: #262c32;
+  width: 256px;
+  height: auto;
+  z-index: 99 !important;
+  right: 6px;
+  top:48px;
 }
 
 .loader {

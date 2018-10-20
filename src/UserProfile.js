@@ -20,7 +20,7 @@ export default class UserProfile extends Component{
 
     render(){
         return(
-            <a>
+            <div className="float-right">
                 <img src={sampleAvatar} width={this.props.width} height={this.props.height} class="navbar-avatar" onClick={this.toggleUserPreview}/>
                 <div>
                     <Modal className="user-profile" isOpen={this.state.isUserPreviewOpen} toggle={this.toggleUserPreview}>
@@ -36,7 +36,7 @@ export default class UserProfile extends Component{
                         </ModalFooter>
                     </Modal>
                 </div>
-            </a>
+            </div>
         )
     }
 }

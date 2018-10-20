@@ -4,6 +4,7 @@ import ChatRoomList from './ChatRoomList';
 import ChatRoom from './ChatRoom';
 import UserProfile from './UserProfile';
 import Notifications from './Notifications';
+import FrontPage from './FrontPage';
 
 
 export default class Chat extends React.Component {
@@ -30,7 +31,13 @@ export default class Chat extends React.Component {
   isUserLogged(){
   }
 
-  render(){  
+  render(){
+    if(!this.state.isUserAuthenticated)
+      return(
+      <div>
+        <FrontPage/>
+      </div>);
+
     return(
       <div className="react-chat bg-dark full-screen">
         <nav class="navbar navbar-dark bg-dark navbar-border">

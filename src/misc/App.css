@@ -4,6 +4,20 @@ html,body{
   color:white;
 }
 
+.front-page{
+  display: flex;
+  height: 100vh;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider{
+  width:5px;
+  height:auto;
+  display:inline-block;
+}
+
 .full-screen{
   height: calc(100vh - 60px) !important; 
 }

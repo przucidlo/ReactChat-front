@@ -29,13 +29,15 @@ export default class Authentication extends React.Component{
         event.preventDefault();
 
         if(this.checkIfSessionCookieIsPresent()){
-            fetch("http://localhost:8080/api/authentication", {
+            fetch(config.url + "login", {
                 method: 'POST',
-                credentials: 'include',
                 headers:{
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
-                body: new URLSearchParams("username=" + this.state.username + "&password=" + this.state.password)
+                body: JSON.stringify({
+                    'username': this.state.username,
+                    'password': this.state.password
+                })
             }).then(function(response){
                 return console.log(response);
             })
@@ -91,15 +93,15 @@ export default class Authentication extends React.Component{
         return (
         <div>
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader toggle={this.toggle}>Authentication</ModalHeader>
-              <ModalBody>
+              <ModalHeader className="chat-room-list-management" toggle={this.toggle}>Authentication</ModalHeader>
+              <ModalBody className="chat-room-list-management">
                 {usernameTakenError}
                 <Label for="Authentication">Your username:</Label>
                 <Input type="text" name="username" id="usernameInput" placeholder="Insert your username" value={this.state.username} onChange={this.handleUsernameInputChange}/>
                 <Label for="Authentication">Your password:</Label>
                 <Input type="password" name="password" id="passwordInput" placeholder="Insert your password" value={this.state.password} onChange={this.handlePasswordInputChange}/>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className="chat-room-list-management">
                 <Form onSubmit={this.authenticate}>
                     <Button color="primary">Login</Button>
                 </Form>

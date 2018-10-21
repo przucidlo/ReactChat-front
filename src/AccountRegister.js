@@ -78,15 +78,15 @@ export default class AccountRegister extends React.Component{
         return (        
         <div>
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader toggle={this.toggle}>Register</ModalHeader>
-              <ModalBody>
+              <ModalHeader toggle={this.toggle} className="chat-room-list-management">Register</ModalHeader>
+              <ModalBody className="chat-room-list-management">
                 {this.state.apiResponse}
                 <Label for="Authentication">Your username:</Label>
                 <Input type="text" name="username" id="usernameInput" placeholder="Insert your username" value={this.state.username} onChange={this.handleUsernameInputChange}/>
                 <Label for="Authentication">Your password:</Label>
                 <Input type="password" name="password" id="passwordInput" placeholder="Insert your password" value={this.state.password} onChange={this.handlePasswordInputChange}/>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className="chat-room-list-management">
                 <Form onSubmit={this.register}>
                     <Button color="primary">Register</Button>
                 </Form>

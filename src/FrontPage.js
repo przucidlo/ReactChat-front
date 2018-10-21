@@ -22,15 +22,15 @@ export default class FrontPage extends React.Component{
 
     render(){
         return(
-            <div class="d-flex front-page flex-column">
+            <div className="d-flex front-page flex-column">
                     <AccountRegister ref={(ref) => this.accountRegister = ref}/>
-                    <Authentication ref={(ref) => this.authentication = ref}/>
-                    <h2>React<a class="chat-logo">Chat</a></h2>
+                    <Authentication updateUserAuthentication={this.props.updateUserAuthentication} ref={(ref) => this.authentication = ref}/>
+                    <h2>React<a className="chat-logo">Chat</a></h2>
                     An open-source chat.
-                    <div class="d-flex flex-row">
-                        <button type="button" onClick={this.openSignInWindow}class="btn btn-primary front-page-button">Sign In</button>
-                        <div class="divider"/>
-                        <button type="button" onClick={this.openSignUpWindow} class="btn btn-primary front-page-button">Sign Up</button>
+                    <div className="d-flex flex-row">
+                        <button type="button" onClick={this.openSignInWindow} className="btn btn-primary front-page-button">Sign In</button>
+                        <div className="divider"/>
+                        <button type="button" onClick={this.openSignUpWindow} className="btn btn-primary front-page-button">Sign Up</button>
                     </div>
             </div>
         )

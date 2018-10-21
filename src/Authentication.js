@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import config from './config/config.json';
+import Cookies from 'js-cookie'
 
 export default class Authentication extends React.Component{
     constructor(props){
@@ -11,25 +12,51 @@ export default class Authentication extends React.Component{
             password: '',
             usernameTakenError: false
         };
-
         this.authenticate = this.authenticate.bind(this);
-
-        this.handleAPIAuthenticationResponse = this.handleAPIAuthenticationResponse.bind(this);
         this.handleUsernameInputChange = this.handleUsernameInputChange.bind(this);
         this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this);
         this.toggle = this.toggle.bind(this);
         this.toggleTakenUsernameError = this.toggleTakenUsernameError.bind(this);
+        this.setAuthorizationCookie = this.setAuthorizationCookie.bind(this);
+        this.authenticateIfTokenCookieIsPresent = this.authenticateIfTokenCookieIsPresent.bind(this);
+        this.checkIfCookieIsValid = this.checkIfCookieIsValid.bind(this);
+    }
+
+    componentDidMount(){
+        this.authenticateIfTokenCookieIsPresent();
     }
 
     /*
         Account authentication
     */
 
+    async authenticateIfTokenCookieIsPresent(){
+        let tokenCookie = Cookies.get('Authorization') 
+
+        if( tokenCookie !== null){
+            const isCookieValid = await this.checkIfCookieIsValid(tokenCookie);
+            
+            if(isCookieValid)
+                this.props.updateUserAuthentication(true);
+        }
+    }
+
+    async checkIfCookieIsValid(tokenCookie){
+        return fetch(config.apiUrl + "secure/chatroom/public", {
+            method: 'GET',
+            headers:{
+                'Authorization': tokenCookie
+            }
+        }).then(response => {
+            return response.ok;
+        });
+    }
+
     authenticate(event){
         event.preventDefault();
 
-        if(this.checkIfSessionCookieIsPresent()){
-            fetch(config.url + "login", {
+            fetch(config.apiUrl + "authenticate", {
+                mode: 'cors',
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json',
@@ -39,26 +66,17 @@ export default class Authentication extends React.Component{
                     'password': this.state.password
                 })
             }).then(function(response){
-                return console.log(response);
-            })
-        }
+                return response;
+            }).then(response => {
+                if(response.ok)
+                    this.setAuthorizationCookie(response.headers.get('Authorization'))
+            })   
     }
 
-    checkIfSessionCookieIsPresent(){
-
-        return true;
+    setAuthorizationCookie(token){
+        Cookies.set('Authorization', token, {expires: 7, path:''});
+        this.props.updateUserAuthentication(true);
     }
-
-    restorePreviousAuthentication(sessionId){
-
-    }
-
-    handleAPIAuthenticationResponse(receivedJson){
-        console.log(receivedJson);
-    }
-
-
-
 
     /*
         Input handling and other DOM actions

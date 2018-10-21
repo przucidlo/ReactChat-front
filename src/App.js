@@ -18,6 +18,7 @@ export default class Chat extends React.Component {
     this.changeChatRoom = this.changeChatRoom.bind(this);
     this.getUserToken = this.getUserToken.bind(this);
     this.isUserLogged = this.isUserLogged.bind(this);
+    this.updateUserAuthentication = this.updateUserAuthentication.bind(this);
   }
 
   changeChatRoom(id){
@@ -31,11 +32,17 @@ export default class Chat extends React.Component {
   isUserLogged(){
   }
 
+  updateUserAuthentication(isUserAuthenticated){
+    this.setState({
+      isUserAuthenticated: isUserAuthenticated
+    })
+  }
+
   render(){
     if(!this.state.isUserAuthenticated)
       return(
       <div>
-        <FrontPage/>
+        <FrontPage updateUserAuthentication={this.updateUserAuthentication}/>
       </div>);
 
     return(

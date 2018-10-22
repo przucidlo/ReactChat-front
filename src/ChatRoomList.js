@@ -3,7 +3,7 @@ import config from './config/config.json';
 import arrowUp from './graphics/arrows/arrow_up.svg';
 import addCircle from './graphics/add-circle.svg';
 import ChatRoomManager from './ChatRoomManager';
-
+import Cookies from 'js-cookie'
 export default class ChatRoomList extends Component{    
     constructor(props){
         super(props)
@@ -11,31 +11,62 @@ export default class ChatRoomList extends Component{
             publicArrowRotation: 0,
             privateArrowRotation: 0,
             showPublicRooms: true,
-            showPrivateRooms: true
+            showPrivateRooms: true,
+            publicRooms: [],
+            privateRooms: []
         }
         this.hidePublicRooms= this.hidePublicRooms.bind(this);
         this.hidePrivateRooms = this.hidePrivateRooms.bind(this);
+        this.fetchPublicChatRooms = this.fetchPublicChatRooms.bind(this);
         this.getPublicChatRooms = this.getPublicChatRooms.bind(this);
+        this.preparePublicRoomList = this.preparePublicRoomList.bind(this);
+        this.fetchPrivateChatRooms = this.fetchPrivateChatRooms.bind(this);
         this.getPrivateChatRooms = this.getPrivateChatRooms.bind(this);
+    }
+
+    componentDidMount(){
+        this.fetchPublicChatRooms();
     }
 
     /*
      *  ChatRoom fetching
      */
 
+    fetchPublicChatRooms(){
+        fetch(config.apiUrl + "secure/chatroom/public", {
+            method: 'GET',
+            headers:{
+                'Authorization': Cookies.get('Authorization')
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            this.setState({publicRooms: json});
+        })
+    }
     
     getPublicChatRooms(){
         if(this.state.showPublicRooms){
             return (                    
             <div class="list-elements">
                 <div class="list-group">
-                    <li class="list-group-item list-group-border-bottom">
-                        #Default
-                    </li>
+                    {this.preparePublicRoomList()}
                 </div>
              </div>
             )
         }
+    }
+
+    preparePublicRoomList(){
+        return this.state.publicRooms.map((publicRoom) => 
+            <li key={publicRoom.id} class="list-group-item list-group-border-bottom">
+                {publicRoom.name}
+            </li>
+        )
+    }
+
+    fetchPrivateChatRooms(){
+
     }
 
     getPrivateChatRooms(){

@@ -72,6 +72,7 @@ html,body{
 .left-bar-column{
   background-color: #262c32 !important;
   overflow-y: auto;
+  color: #fffc;
 }
 
 .list-group-dark .list-group-item{

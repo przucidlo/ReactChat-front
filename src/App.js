@@ -15,7 +15,7 @@ export default class Chat extends React.Component {
     this.state = {
       isUserAuthenticated: false 
     }
-
+    this.chatRoomManager = null;
     this.changeChatRoom = this.changeChatRoom.bind(this);
     this.getUserToken = this.getUserToken.bind(this);
     this.isUserLogged = this.isUserLogged.bind(this);
@@ -23,7 +23,8 @@ export default class Chat extends React.Component {
   }
 
   changeChatRoom(id){
-    this.chatRoom.changeChatRoom(id);
+    console.log("debug");
+    this.chatRoomManager.selectChatRoom(id);
   }
 
   getUserToken(){
@@ -58,10 +59,10 @@ export default class Chat extends React.Component {
         <div className="container-fluid h-100">
           <div className="row h-100">
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 left-bar-column remove-padding">
-              <ChatRoomList class="h-100"/>
+              <ChatRoomList changeChatRoom={this.changeChatRoom} class="h-100"/>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column h-100 remove-padding">
-              <ChatRoomManager class="h-100"/>
+              <ChatRoomManager ref={ref => this.chatRoomManager = ref}class="h-100"/>
             </div>
           </div>
         </div>

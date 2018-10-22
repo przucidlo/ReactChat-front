@@ -64,7 +64,7 @@ export default class ChatRoomList extends Component{
 
     preparePublicRoomList(){
         return this.state.publicRooms.map((publicRoom) => 
-            <li key={publicRoom.id} class="list-group-item list-group-border-bottom">
+            <li key={publicRoom.id} class="list-group-item list-group-border-bottom" onClick={() => {this.props.changeChatRoom(publicRoom.id)}}>
                 {publicRoom.name}
             </li>
         )
@@ -99,7 +99,7 @@ export default class ChatRoomList extends Component{
 
     preparePrivateRoomList(){
         return this.state.privateRooms.map((privateRoom) => 
-            <li key={privateRoom.id} class="list-group-item list-group-border-bottom">
+            <li key={privateRoom.id} class="list-group-item list-group-border-bottom" onClick={() => {this.props.changeChatRoom(privateRoom.id)}}>
                 {privateRoom.name}
             </li>
         )

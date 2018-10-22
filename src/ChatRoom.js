@@ -2,7 +2,8 @@ import React, { Component} from 'react';
 import config from './config/config.json';
 import {Alert, Form, FormGroup, Input, Button, Badge} from 'reactstrap';
 import './misc/App.css';
-import sampleAvatar from './graphics/sample_avatar.png'
+import sampleAvatar from './graphics/sample_avatar.png';
+import Cookies from 'js-cookie';
 
 export default class ChatRoom extends Component{    
     constructor(props){
@@ -17,6 +18,10 @@ export default class ChatRoom extends Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.sendUserMessage = this.sendUserMessage.bind(this);
+    }
+
+    componentDidMount(){
+        this.retrieveChatRoomContent();
     }
 
     /*
@@ -48,7 +53,12 @@ export default class ChatRoom extends Component{
 
     retrieveChatRoomContent(){
         let interval = setInterval(() => {
-            fetch(config.apiUrl + "secure/chatMessages?roomId=" + this.state.chatRoomId)
+            fetch(config.apiUrl + "secure/chatMessages?roomId=" + this.state.chatRoomId, {
+                method: 'GET',
+                headers:{
+                    'Authorization': Cookies.get('Authorization')
+                }
+            })
             .then(function(response){
                 return response.json();
             })
@@ -133,22 +143,16 @@ export default class ChatRoom extends Component{
         this.setState({value: ''});
     }
 
+    getId(){
+        return this.state.chatRoomId;
+    }
+
     render(){
         return(
             <div class="container-fluid d-flex flex-column h-100">
                 <div class="row flex-fill d-flex">
                     <div class="col remove-padding chat-room-messages">
-
-                        <div id="message" class="chat-room-message">
-                            <div id="user_avatar" class="d-flex">
-                                <img src={sampleAvatar} class="chat-room-message-avatar"></img>
-                                <div class="align-self-start chat-room-message-content">
-                                    Sample Name
-                                    <a class="font-weight-light chat-room-message-date"> 18.10.2018 15:18</a>
-                                    <div class="align-self-end ">Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla Lorem ipsum bla bla bla</div>
-                                </div>
-                            </div>
-                        </div>
+                        {this.renderChatRoomContent()}
                     </div>
                 </div>
                 <div class="row flex-shrink-0">

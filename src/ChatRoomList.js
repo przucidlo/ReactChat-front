@@ -2,8 +2,9 @@ import React, { Component} from 'react';
 import config from './config/config.json';
 import arrowUp from './graphics/arrows/arrow_up.svg';
 import addCircle from './graphics/add-circle.svg';
-import ChatRoomManager from './ChatRoomManager';
+import ChatRoomActions from './ChatRoomActions';
 import Cookies from 'js-cookie'
+
 export default class ChatRoomList extends Component{    
     constructor(props){
         super(props)
@@ -22,10 +23,12 @@ export default class ChatRoomList extends Component{
         this.preparePublicRoomList = this.preparePublicRoomList.bind(this);
         this.fetchPrivateChatRooms = this.fetchPrivateChatRooms.bind(this);
         this.getPrivateChatRooms = this.getPrivateChatRooms.bind(this);
+        this.preparePrivateRoomList = this.preparePrivateRoomList.bind(this);
     }
 
     componentDidMount(){
         this.fetchPublicChatRooms();
+        this.fetchPrivateChatRooms();
     }
 
     /*
@@ -33,16 +36,18 @@ export default class ChatRoomList extends Component{
      */
 
     fetchPublicChatRooms(){
-        fetch(config.apiUrl + "secure/chatroom/public", {
-            method: 'GET',
-            headers:{
-                'Authorization': Cookies.get('Authorization')
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            this.setState({publicRooms: json});
-        })
+        let interval = setInterval(() => {
+            fetch(config.apiUrl + "secure/chatroom/public", {
+                method: 'GET',
+                headers:{
+                    'Authorization': Cookies.get('Authorization')
+                }
+            }).then(response => {
+                return response.json();
+            }).then(json => {
+                this.setState({publicRooms: json});
+            })
+        }, config.chatRoomListRefreshRate);
     }
     
     getPublicChatRooms(){
@@ -66,7 +71,18 @@ export default class ChatRoomList extends Component{
     }
 
     fetchPrivateChatRooms(){
-
+        let interval = setInterval(() => {
+            fetch(config.apiUrl + "secure/chatroom/private", {
+                method: 'GET',
+                headers:{
+                    'Authorization': Cookies.get('Authorization')
+                }
+            }).then(response => {
+                return response.json();
+            }).then(json => {
+                this.setState({privateRooms: json});
+            })
+        }, config.chatRoomListRefreshRate);
     }
 
     getPrivateChatRooms(){
@@ -74,13 +90,19 @@ export default class ChatRoomList extends Component{
             return (                    
             <div class="list-elements">
                 <div class="list-group">
-                    <li class="list-group-item list-group-border-bottom">
-                        #Default
-                    </li>
+                    {this.preparePrivateRoomList()}
                 </div>
              </div>
             )
         }
+    }
+
+    preparePrivateRoomList(){
+        return this.state.privateRooms.map((privateRoom) => 
+            <li key={privateRoom.id} class="list-group-item list-group-border-bottom">
+                {privateRoom.name}
+            </li>
+        )
     }
 
     /*
@@ -117,7 +139,7 @@ export default class ChatRoomList extends Component{
                         Public 
                         <img src={arrowUp} class="list-group-arrow" id="public_arrow" 
                         style={{transform: `rotate(${this.state.publicArrowRotation}deg)`}} onClick={this.hidePublicRooms}/>
-                        <ChatRoomManager/>
+                        <ChatRoomActions/>
                     </li>
                     {this.getPublicChatRooms()}
                 </div>
@@ -126,7 +148,7 @@ export default class ChatRoomList extends Component{
                         Private 
                         <img src={arrowUp} class="list-group-arrow" id="private_arrow"
                         style={{transform: `rotate(${this.state.privateArrowRotation}deg)`}} onClick={this.hidePrivateRooms}></img>
-                        <ChatRoomManager onlyCreate={true}/>
+                        <ChatRoomActions onlyCreate={true}/>
                     </li>
                     {this.getPrivateChatRooms()}
                 </div>

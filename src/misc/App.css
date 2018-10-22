@@ -31,6 +31,15 @@ html,body{
   float: right;
 }
 
+.owl{
+  text-align: center;
+  justify-content: center;
+}
+
+.owl-text{
+  color: #fff3;
+}
+
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: #870087 !important;
   border-color: #870087;

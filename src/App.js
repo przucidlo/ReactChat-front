@@ -5,6 +5,7 @@ import ChatRoom from './ChatRoom';
 import UserProfile from './UserProfile';
 import Notifications from './Notifications';
 import FrontPage from './FrontPage';
+import ChatRoomManager from './ChatRoomManager';
 
 
 export default class Chat extends React.Component {
@@ -60,7 +61,7 @@ export default class Chat extends React.Component {
               <ChatRoomList class="h-100"/>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column h-100 remove-padding">
-              <ChatRoom class="h-100"/>
+              <ChatRoomManager class="h-100"/>
             </div>
           </div>
         </div>

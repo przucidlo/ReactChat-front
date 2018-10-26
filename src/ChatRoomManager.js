@@ -2,6 +2,7 @@ import React from 'react'
 import owl from './graphics/owl.svg';
 import ChatRoom from './ChatRoom';
 
+
 export default class ChatRoomManager extends React.Component{
     constructor(props){
         super(props);

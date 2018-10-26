@@ -16,28 +16,28 @@ export default class ChatRoomList extends Component{
             publicRooms: [],
             privateRooms: []
         }
+
+        this.fetchUserChatRooms = this.fetchUserChatRooms.bind(this);
+        this.sortChatRooms = this.sortChatRooms.bind(this);
         this.hidePublicRooms= this.hidePublicRooms.bind(this);
         this.hidePrivateRooms = this.hidePrivateRooms.bind(this);
-        this.fetchPublicChatRooms = this.fetchPublicChatRooms.bind(this);
         this.getPublicChatRooms = this.getPublicChatRooms.bind(this);
-        this.preparePublicRoomList = this.preparePublicRoomList.bind(this);
-        this.fetchPrivateChatRooms = this.fetchPrivateChatRooms.bind(this);
         this.getPrivateChatRooms = this.getPrivateChatRooms.bind(this);
+        this.preparePublicRoomList = this.preparePublicRoomList.bind(this);
         this.preparePrivateRoomList = this.preparePrivateRoomList.bind(this);
     }
 
     componentDidMount(){
-        this.fetchPublicChatRooms();
-        this.fetchPrivateChatRooms();
+        this.fetchUserChatRooms();
     }
 
     /*
      *  ChatRoom fetching
      */
 
-    fetchPublicChatRooms(){
+    fetchUserChatRooms(){
         let interval = setInterval(() => {
-            fetch(config.apiUrl + "secure/chatroom/public", {
+            fetch(config.apiUrl + "secure/chatroom", {
                 method: 'GET',
                 headers:{
                     'Authorization': Cookies.get('Authorization')
@@ -45,11 +45,36 @@ export default class ChatRoomList extends Component{
             }).then(response => {
                 return response.json();
             }).then(json => {
-                this.setState({publicRooms: json});
+                this.sortChatRooms(json);
             })
         }, config.chatRoomListRefreshRate);
     }
     
+    sortChatRooms(unsortedChatRooms){
+        let publicRooms = [];
+        let privateRooms = [];
+        
+        unsortedChatRooms.map((chatRoom) => {
+            switch(chatRoom.type){
+                case 'PUBLIC':
+                    publicRooms.push(chatRoom)
+                    break;
+                case 'PRIVATE':
+                    privateRooms.push(chatRoom)
+                    break;
+            }
+        })
+
+        this.setState({
+            publicRooms: publicRooms,
+            privateRooms: privateRooms
+        })
+    }
+
+    /*
+     *  HTML/CSS related
+     */
+
     getPublicChatRooms(){
         if(this.state.showPublicRooms){
             return (                    
@@ -68,21 +93,6 @@ export default class ChatRoomList extends Component{
                 {publicRoom.name}
             </li>
         )
-    }
-
-    fetchPrivateChatRooms(){
-        let interval = setInterval(() => {
-            fetch(config.apiUrl + "secure/chatroom/private", {
-                method: 'GET',
-                headers:{
-                    'Authorization': Cookies.get('Authorization')
-                }
-            }).then(response => {
-                return response.json();
-            }).then(json => {
-                this.setState({privateRooms: json});
-            })
-        }, config.chatRoomListRefreshRate);
     }
 
     getPrivateChatRooms(){
@@ -104,10 +114,6 @@ export default class ChatRoomList extends Component{
             </li>
         )
     }
-
-    /*
-     *  HTML/CSS related
-     */
 
     hidePublicRooms(){
         this.setState({

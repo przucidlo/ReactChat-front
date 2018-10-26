@@ -194,11 +194,11 @@ input[type=number]:focus,
 }
 
 .loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #3498db; /* Blue */
+  border: 4px solid #870087; /* Light grey */
+  border-top: 4px solid white; /* Blue */
   border-radius: 50%;
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
   animation: spin 2s linear infinite;
   float: none;
   margin: 0 auto;

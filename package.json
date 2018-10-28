@@ -8,6 +8,7 @@
     "eslint-config-standard-react": "^7.0.2",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
+    "rc-progress": "^2.2.6",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
     "react-custom-scrollbars": "^4.2.1",

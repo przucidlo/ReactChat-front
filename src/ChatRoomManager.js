@@ -46,7 +46,7 @@ export default class ChatRoomManager extends React.Component{
 
     }
 
-    render(){
+    render(){        
         if(this.state.selectedChatRoom === null)
             return (
                 <div className="d-flex flex-column h-100 owl">
@@ -61,7 +61,7 @@ export default class ChatRoomManager extends React.Component{
                     </div>
                 </div>
             )
-
+        
         return (
             <div className="d-flex h-100">
                 {this.state.selectedChatRoom}                

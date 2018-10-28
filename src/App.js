@@ -1,13 +1,11 @@
 import React from 'react';
 import './misc/App.css';
 import ChatRoomList from './ChatRoomList';
-import ChatRoom from './ChatRoom';
 import UserProfile from './UserProfile';
 import Notifications from './Notifications';
 import FrontPage from './FrontPage';
 import ChatRoomManager from './ChatRoomManager';
 import Cookies from 'js-cookie';
-import config from './config/config.json';
 import jwt_decode from 'jwt-decode';
 
 export default class Chat extends React.Component {

@@ -4,6 +4,14 @@ html,body{
   color:white;
 }
 
+.bg-purple {
+  background-color: #870087;
+}
+
+.progress{
+  height: 3px;
+}
+
 .front-page{
   display: flex;
   height: 100vh;

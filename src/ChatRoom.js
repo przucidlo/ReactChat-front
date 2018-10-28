@@ -1,15 +1,16 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
 import './misc/App.css';
-import sampleAvatar from './graphics/sample_avatar.png';
 import Cookies from 'js-cookie';
 import UserProfile from './UserProfile.js';
+import {Progress} from 'reactstrap';
 
 export default class ChatRoom extends Component{    
     constructor(props){
         super(props)
         this.state = {
             chatContent: [],
+            isLoading: true,
             value: ''
         }
 
@@ -43,7 +44,9 @@ export default class ChatRoom extends Component{
                     'Authorization': Cookies.get('Authorization')
                 }
             }).then(response => {
-                
+                if(this.state.isLoading)
+                    this.setState({isLoading: false});
+
                 return response.json();
             }).then(receivedJson => {
                 if(this.interval !== null){
@@ -55,7 +58,7 @@ export default class ChatRoom extends Component{
     }
 
     compareLastMessageOnClientSide(receivedJson){
-        let lastMessageOnClientSide = null;
+        let lastMessageOnClientSide = 0;
         if(this.state.chatContent.length !== 0){
             lastMessageOnClientSide = this.state.chatContent[this.state.chatContent.length - 1].roomIndependentMessageId;
         }
@@ -85,6 +88,13 @@ export default class ChatRoom extends Component{
 
 
     renderChatRoomContent(){
+        if(this.state.isLoading)
+            return (
+                <div>
+                    <Progress animated color="purple" value="100" height="8"/>
+                </div>
+            )
+        
         if(this.notEmpty(this.state.chatContent)){
             return this.state.chatContent.map((chatContent) => 
 
@@ -100,12 +110,16 @@ export default class ChatRoom extends Component{
             </div>
             )
         }else{
-            return <div className="loader"></div>
+            return <div className="flex-row">
+                <div className="flex-row owl-text">
+                    Its kinda quite in here
+                </div>
+            </div>
         }
     }
 
     notEmpty(array){
-        return typeof array !== undefined;
+        return typeof array !== undefined && array !== [];
     }
 
     /*

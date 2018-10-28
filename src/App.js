@@ -6,19 +6,20 @@ import UserProfile from './UserProfile';
 import Notifications from './Notifications';
 import FrontPage from './FrontPage';
 import ChatRoomManager from './ChatRoomManager';
-
+import Cookies from 'js-cookie';
+import config from './config/config.json';
+import jwt_decode from 'jwt-decode';
 
 export default class Chat extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      isUserAuthenticated: false 
+      isUserAuthenticated: false,
+      username: null
     }
     this.chatRoomManager = null;
     this.changeChatRoom = this.changeChatRoom.bind(this);
-    this.getUserToken = this.getUserToken.bind(this);
-    this.isUserLogged = this.isUserLogged.bind(this);
     this.updateUserAuthentication = this.updateUserAuthentication.bind(this);
   }
 
@@ -26,17 +27,17 @@ export default class Chat extends React.Component {
     this.chatRoomManager.selectChatRoom(id);
   }
 
-  getUserToken(){
-    return this.authentication.state.token;
-  }
-
-  isUserLogged(){
-  }
-
   updateUserAuthentication(isUserAuthenticated){
+    this.decodeUsernameFromJwt();
     this.setState({
-      isUserAuthenticated: isUserAuthenticated
+      isUserAuthenticated: isUserAuthenticated,
+      username: this.decodeUsernameFromJwt()
     })
+  }
+
+  decodeUsernameFromJwt(){
+    let decoded = jwt_decode(Cookies.get('Authorization'));
+    return decoded.sub;
   }
 
   render(){
@@ -51,7 +52,7 @@ export default class Chat extends React.Component {
         <nav class="navbar navbar-dark bg-dark navbar-border">
           <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
           <div>
-            <UserProfile width="32" height="32"/>
+            <UserProfile width="32" height="32" username={this.state.username}/>
             <Notifications/>
           </div>
         </nav>

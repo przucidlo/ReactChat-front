@@ -3,6 +3,7 @@ import config from './config/config.json';
 import './misc/App.css';
 import sampleAvatar from './graphics/sample_avatar.png';
 import Cookies from 'js-cookie';
+import UserProfile from './UserProfile.js';
 
 export default class ChatRoom extends Component{    
     constructor(props){
@@ -89,7 +90,7 @@ export default class ChatRoom extends Component{
 
             <div key={chatContent.id} id="message" class="chat-room-message">
                 <div id="user_avatar" class="d-flex">
-                    <img src={sampleAvatar} class="chat-room-message-avatar"></img>
+                    <UserProfile width="48" height="48" username={chatContent.sender}/>
                     <div class="align-self-start chat-room-message-content">
                         {chatContent.sender}
                         <a class="font-weight-light chat-room-message-date">{chatContent.timeStamp}</a>

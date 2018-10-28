@@ -23,7 +23,6 @@ export default class Chat extends React.Component {
   }
 
   changeChatRoom(id){
-    console.log("debug");
     this.chatRoomManager.selectChatRoom(id);
   }
 

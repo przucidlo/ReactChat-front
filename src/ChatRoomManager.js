@@ -7,34 +7,43 @@ export default class ChatRoomManager extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            selectedChatRoom: null,
-            chatRooms: new Map()
+            previousChatRooms: [],
+            selectedChatRoom: null
         }
-
+        this.selectedChatRoomRef = new React.createRef();
+        
         this.selectChatRoom = this.selectChatRoom.bind(this);
-        this.loadChatRoom = this.loadChatRoom.bind(this);
     }
 
     selectChatRoom(id){
-        let wasRoomLoadedBefore = this.state.chatRooms.get(id);
-        console.log(wasRoomLoadedBefore);
-        
-        if(wasRoomLoadedBefore !== undefined){
-            this.setState({selectedChatRoom: wasRoomLoadedBefore});
-        }else{
-            this.setState({selectedChatRoom: this.loadChatRoom(id)});
+        this.savePreviousChatRoom();
+
+
+        this.setState({
+            selectedChatRoom: null
+        }, () => {
+            this.setState({
+                selectedChatRoom: <ChatRoom chatRoomId={id}/>
+            })
+        });
+    }
+
+    savePreviousChatRoom(){
+        if(this.state.selectedChatRoom != null){
+            if(!this.checkIfChatRoomWasSavedBefore()){
+                
+            }else{
+                this.updateSavedChatRoom();
+            }
         }
     }
 
-    loadChatRoom(id){
-        let chatRoomsMap = this.state.chatRooms;
-        let newChatRoom = <ChatRoom chatRoomId={id}/>;
+    checkIfChatRoomWasSavedBefore(){
 
-        chatRoomsMap.set(id, newChatRoom);
+    }
 
-        this.setState({chatRooms: chatRoomsMap});
+    updateSavedChatRoom(){
 
-        return newChatRoom;
     }
 
     render(){

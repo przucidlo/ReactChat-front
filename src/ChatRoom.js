@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import config from './config/config.json';
-import {Alert, Form, FormGroup, Input, Button, Badge} from 'reactstrap';
 import './misc/App.css';
 import sampleAvatar from './graphics/sample_avatar.png';
 import Cookies from 'js-cookie';
@@ -8,93 +7,87 @@ import Cookies from 'js-cookie';
 export default class ChatRoom extends Component{    
     constructor(props){
         super(props)
-        
-        this.doesUserUsedScroll = false
         this.state = {
-            chatRoomId: this.props.chatRoomId,
             chatContent: [],
-            interval : null,
             value: ''
         }
+
+        this.chatRoomId = this.props.chatRoomId;
+        this.interval = null;
+
         this.handleChange = this.handleChange.bind(this);
         this.sendUserMessage = this.sendUserMessage.bind(this);
+        this.getLastMessageIndependentId = this.getLastMessageIndependentId.bind(this);
+        this.compareLastMessageOnClientSide = this.compareLastMessageOnClientSide.bind(this);
     }
 
     componentDidMount(){
-        this.retrieveChatRoomContent();
+        this.checkIfNewMessageHasBeenPosted();
     }
 
-    /*
-     *  Chatroom management
-     */
-
-    changeChatRoom(id){
-        this.doesUserUsedScroll = false;
-        this.clearChatContent();
-        this.restartInterval();
-        this.setState({chatRoomId: id}, this.retrieveChatRoomContent);
-    }
-
-    restartInterval(){
-        if(this.state.interval !== null){
-            clearInterval(this.state.interval);
-        }
-    }
-
-    clearChatContent(){
-        if(this.notEmpty(this.state.chatContent)){
-            this.setState({chatContent: []});
-        }
+    componentWillUnmount(){
+        clearInterval(this.interval);
+        this.interval = null;
     }
 
     /*
      *  Displaying Chat content. 
      */
 
-    retrieveChatRoomContent(){
+    checkIfNewMessageHasBeenPosted(){
         let interval = setInterval(() => {
-            fetch(config.apiUrl + "secure/chatMessages?roomId=" + this.state.chatRoomId, {
+            fetch(config.apiUrl + "secure/chatMessages/getLastMessageInChatRoom?roomId=" + this.chatRoomId, {
                 method: 'GET',
                 headers:{
                     'Authorization': Cookies.get('Authorization')
                 }
-            })
-            .then(function(response){
+            }).then(response => {
+                
                 return response.json();
-            })
-            .then(receivedJson => {
-                if(receivedJson !== this.state.chatContent){
-                    this.setState({ chatContent: receivedJson});
+            }).then(receivedJson => {
+                if(this.interval !== null){
+                    this.compareLastMessageOnClientSide(receivedJson);
                 }
-                this.scrollToBottomConditional();
             })
         }, config.chatRefreshRate)
-        this.setState({interval: interval});
+        this.interval = interval;
     }
 
-    scrollToBottomConditional(){
-        if(!this.doesUserUsedScroll){
-            this.chatContentDiv.scrollTop = this.chatContentDiv.scrollHeight;
+    compareLastMessageOnClientSide(receivedJson){
+        let lastMessageOnClientSide = null;
+        if(this.state.chatContent.length !== 0){
+            lastMessageOnClientSide = this.state.chatContent[this.state.chatContent.length - 1].roomIndependentMessageId;
         }
-        this.checkIfUserUsedScroll();
+        let lastMessageOnServerSideId = receivedJson.roomIndependentMessageId;
+
+        if(lastMessageOnServerSideId !== null || lastMessageOnClientSide !== null){
+            if(lastMessageOnClientSide <= lastMessageOnClientSide){
+                this.retrieveChatRoomContent();
+            }
+        }
     }
 
-    checkIfUserUsedScroll(){
-        console.log("1:" + this.chatContentDiv.scrollTop + "2:" + this.chatContentDiv.scrollHeight + this.chatContentDiv.clientHeight);
-        if(this.chatContentDiv.scrollTop !== this.chatContentDiv.scrollHeight + this.chatContentDiv.clientHeight){
-            this.doesUserUsedScroll = true;
-            console.log("Set true");
-        }else{
-            this.doesUserUsedScroll = false;
-            console.log("Set false");
-        }
+    retrieveChatRoomContent(){
+        fetch(config.apiUrl + "secure/chatMessages?roomId=" + this.chatRoomId, {
+            method: 'GET',
+            headers:{
+                'Authorization': Cookies.get('Authorization')
+            }
+            }).then(function(response){
+                return response.json();
+            }).then(receivedJson => {
+                if(receivedJson !== this.state.chatContent && this.interval !== null){
+                    this.setState({ chatContent: receivedJson});
+                }
+            })
     }
+
 
     renderChatRoomContent(){
         if(this.notEmpty(this.state.chatContent)){
             return this.state.chatContent.map((chatContent) => 
 
-            <div id="message" class="chat-room-message">
+            <div key={chatContent.id} id="message" class="chat-room-message">
                 <div id="user_avatar" class="d-flex">
                     <img src={sampleAvatar} class="chat-room-message-avatar"></img>
                     <div class="align-self-start chat-room-message-content">
@@ -111,7 +104,7 @@ export default class ChatRoom extends Component{
     }
 
     notEmpty(array){
-        return typeof array !== undefined && array.length > 0;
+        return typeof array !== undefined;
     }
 
     /*
@@ -124,16 +117,16 @@ export default class ChatRoom extends Component{
 
     sendUserMessage(event){
         event.preventDefault();
-        console.log(this.props.userToken())
-        fetch(config.apiUrl + '/chat/chatRoom/addNewMessage', {
+
+        fetch(config.apiUrl + 'secure/chatMessages', {
             method: 'POST',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': Cookies.get('Authorization')
             },
             body:JSON.stringify({
-                'token': this.props.userToken(),
-                'chatRoomId': this.state.chatRoomId,
-                'message': this.state.value
+                'roomId': this.chatRoomId,
+                'chatRoomMessage': this.state.value
             })
         });
         this.clearInputField();
@@ -147,6 +140,10 @@ export default class ChatRoom extends Component{
         return this.state.chatRoomId;
     }
 
+    getLastMessageIndependentId(){
+        return this.state.chatContent[this.chatContent.length - 1].roomIndependentMessageId;
+    }
+
     render(){
         return(
             <div class="container-fluid d-flex flex-column h-100">
@@ -157,8 +154,8 @@ export default class ChatRoom extends Component{
                 </div>
                 <div class="row flex-shrink-0">
                     <div class="col remove-padding">
-                        <form>
-                            <input type="message" class="form-control" placeholder="Insert message..."></input>
+                        <form onSubmit={this.sendUserMessage}>
+                            <input type="message" value={this.state.value} onChange={this.handleChange} class="form-control" placeholder="Insert message..."></input>
                         </form>
                     </div>
                 </div>

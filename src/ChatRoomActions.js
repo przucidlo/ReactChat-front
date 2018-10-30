@@ -2,6 +2,7 @@ import {Input, Label, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } fr
 import addCircle from './graphics/add-circle.svg';
 import React from 'react';
 import returnArrow from './graphics/arrows/return_arrow.svg';
+import ChatRoomCreator from './ChatRoomCreator';
 
 export default class ChatRoomActions extends React.Component{
     constructor(props){
@@ -65,34 +66,7 @@ export default class ChatRoomActions extends React.Component{
         if(!this.state.onlyCreate)
             returnButton = <img src={returnArrow} onClick={()=>{this.changeDOM(this.getSelectionSectionDOM)}}/>
 
-        return(
-            <div>
-                <ModalHeader className="chat-room-list-management">
-                    {returnButton}
-                    Room Creation
-                </ModalHeader>
-                <ModalBody className="chat-room-list-management">
-                    Room name:
-                    <input type="text" class="form-control"/>
-                    Room description:
-                    <input type="text" class="form-control"/>
-                    Room type:
-                    <FormGroup check >
-                        <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            Public
-                        </Label>
-                        <Label check className="chat-room-list-management-checkbox">
-                            <Input type="radio" name="radio1" />{' '}
-                            Private
-                        </Label>
-                    </FormGroup>
-                </ModalBody>
-                <ModalFooter className="chat-room-list-management">
-                    <button type="button" class="btn btn-primary">Create Room</button>
-                </ModalFooter>  
-            </div>
-        )
+        return <ChatRoomCreator returnButton={returnButton}/>
     }
 
     getRoomListDOM(){

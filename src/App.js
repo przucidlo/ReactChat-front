@@ -59,8 +59,10 @@ export default class Chat extends React.Component {
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 left-bar-column remove-padding">
               <ChatRoomList changeChatRoom={this.changeChatRoom} class="h-100"/>
             </div>
-            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column h-100 remove-padding">
-              <ChatRoomManager ref={ref => this.chatRoomManager = ref}class="h-100"/>
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 content-column remove-padding">
+              <div className="container-fluid h-100 remove-padding">
+                <ChatRoomManager ref={ref => this.chatRoomManager = ref}class="h-100"/>
+              </div>
             </div>
           </div>
         </div>
@@ -69,4 +71,4 @@ export default class Chat extends React.Component {
   }
 }
 
-//
+//<ChatRoomManager ref={ref => this.chatRoomManager = ref}class="h-100"/>

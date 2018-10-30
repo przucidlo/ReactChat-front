@@ -98,7 +98,7 @@ export default class ChatRoom extends Component{
         if(this.notEmpty(this.state.chatContent)){
             return this.state.chatContent.map((chatContent) => 
 
-            <div key={chatContent.id} id="message" class="chat-room-message">
+            <div key={chatContent.id} id="message" className="chat-room-message">
                 <div id="user_avatar" class="d-flex">
                     <UserProfile width="48" height="48" username={chatContent.sender}/>
                     <div class="align-self-start chat-room-message-content">
@@ -161,18 +161,14 @@ export default class ChatRoom extends Component{
 
     render(){
         return(
-            <div class="container-fluid d-flex flex-column h-100">
-                <div class="row flex-fill d-flex">
-                    <div class="col remove-padding chat-room-messages">
-                        {this.renderChatRoomContent()}
-                    </div>
+            <div className="d-flex flex-fill flex-column h-100">
+                <div className="containter-fluid chat-room-messages h-100">
+                    {this.renderChatRoomContent()}
                 </div>
-                <div class="row flex-shrink-0">
-                    <div class="col remove-padding">
-                        <form onSubmit={this.sendUserMessage}>
-                            <input type="message" value={this.state.value} onChange={this.handleChange} class="form-control" placeholder="Insert message..."></input>
-                        </form>
-                    </div>
+                <div class="containter-fluid">
+                    <form onSubmit={this.sendUserMessage}>
+                        <input type="message" value={this.state.value} onChange={this.handleChange} class="form-control" placeholder="Insert message..."></input>
+                    </form>
                 </div>
             </div>
         );

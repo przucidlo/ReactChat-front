@@ -162,7 +162,7 @@ export default class ChatRoom extends Component{
     render(){
         return(
             <div className="d-flex flex-fill flex-column h-100">
-                <div className="containter-fluid chat-room-messages h-100">
+                <div className="containter-fluid chat-room-messages flex-grow-1">
                     {this.renderChatRoomContent()}
                 </div>
                 <div class="containter-fluid">

@@ -1,6 +1,6 @@
 {
     "url": "http://localhost:8080/",
     "apiUrl": "http://localhost:8080/api/",
-    "chatRefreshRate": 500,
+    "chatRefreshRate": 250,
     "chatRoomListRefreshRate": 500
 }

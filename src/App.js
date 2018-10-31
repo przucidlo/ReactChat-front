@@ -7,6 +7,7 @@ import FrontPage from './FrontPage';
 import ChatRoomManager from './ChatRoomManager';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
+import Logout from './Logout';
 
 export default class Chat extends React.Component {
 
@@ -51,6 +52,7 @@ export default class Chat extends React.Component {
           <a class="navbar-brand" href="#">React<a class="chat-logo">Chat</a></a>
           <div>
             <UserProfile width="32" height="32" username={this.state.username}/>
+            <Logout/>
             <Notifications/>
           </div>
         </nav>

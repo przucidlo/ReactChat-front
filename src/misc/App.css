@@ -69,6 +69,12 @@ html,body{
   margin-right: 8px;
 }
 
+.navbar-logout{
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+
 .navbar-avatar{
   border-radius: 50%;
 }

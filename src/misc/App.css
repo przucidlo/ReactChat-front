@@ -20,6 +20,12 @@ html,body{
   justify-content: center;
 }
 
+.input-group-text{
+  background-color: #2f363e !important;
+  border-color: #870087 !important; 
+  color: white;
+}
+
 .divider{
   width:5px;
   height:auto;

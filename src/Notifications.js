@@ -25,7 +25,7 @@ export default class Notifications extends React.Component{
             (            
                 <div class="notification-window list-group-dark">
                     <ul class="list-group list-group-border-bottom">
-                        <li class="list-group-item">Sample notification</li>
+                        <li class="list-group-item">Coming up in 1.0.0 release</li>
                     </ul>
                 </div>
             )

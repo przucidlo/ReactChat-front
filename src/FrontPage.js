@@ -27,7 +27,7 @@ export default class FrontPage extends React.Component{
                     <Authentication updateUserAuthentication={this.props.updateUserAuthentication} ref={(ref) => this.authentication = ref}/>
                     <h2>React<a className="chat-logo">Chat</a></h2>
                     <br />
-                    (Please note that this is a stress test release, some functions might be yet to implement.
+                    (Please note that this is a stress test release, some functions might yet be to implement.
                     <br />
                     If you occur any bug, please report it to me on Discord DM, Bbl#3361)
                     <div className="d-flex flex-row">

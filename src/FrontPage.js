@@ -26,7 +26,10 @@ export default class FrontPage extends React.Component{
                     <AccountRegister ref={(ref) => this.accountRegister = ref}/>
                     <Authentication updateUserAuthentication={this.props.updateUserAuthentication} ref={(ref) => this.authentication = ref}/>
                     <h2>React<a className="chat-logo">Chat</a></h2>
-                    An open-source chat.
+                    <br />
+                    (Please note that this is a stress test release, some functions might be yet to implement.
+                    <br />
+                    If you occur any bug, please report it to me on Discord DM, Bbl#3361)
                     <div className="d-flex flex-row">
                         <button type="button" onClick={this.openSignInWindow} className="btn btn-primary front-page-button">Sign In</button>
                         <div className="divider"/>

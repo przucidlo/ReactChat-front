@@ -3,6 +3,7 @@ import addCircle from './graphics/add-circle.svg';
 import React from 'react';
 import returnArrow from './graphics/arrows/return_arrow.svg';
 import ChatRoomCreator from './ChatRoomCreator';
+import JoinChatRoom from './JoinChatRoom';
 
 export default class ChatRoomActions extends React.Component{
     constructor(props){
@@ -70,23 +71,9 @@ export default class ChatRoomActions extends React.Component{
     }
 
     getRoomListDOM(){
-        return(
-            <div>
-                <ModalHeader className="user-profile">
-                <img src={returnArrow} onClick={()=>{this.changeDOM(this.getSelectionSectionDOM)}}/>
-                    Join Room
-                </ModalHeader>
-                <ModalBody className="user-profile">
-                    <div class="join-chat-room-list list-group-dark">
-                        <ul class="list-group list-group-border-bottom">
-                            <li class="list-group-item">Sample notification</li>
-                        </ul>
-                    </div>
-                </ModalBody>
-                <ModalFooter className="user-profile">
-                </ModalFooter>                  
-            </div>
-        )
+        let returnButton = <img src={returnArrow} onClick={()=>{this.changeDOM(this.getSelectionSectionDOM)}}/>
+
+        return <JoinChatRoom returnButton={returnButton}/>
     }
 
     render(){

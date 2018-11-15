@@ -15,10 +15,15 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.5.2",
     "react-scripts": "1.1.5",
-    "reactstrap": "^6.4.0"
+    "reactstrap": "^6.4.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
+    "sockjs": "^0.3.19",
+    "sockjs-client": "^1.3.0",
+    "stompjs": "^2.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

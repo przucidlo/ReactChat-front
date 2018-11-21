@@ -1,15 +1,20 @@
-import react from 'react';
+import React from 'react';
 
-export default class App extends React.Component{
-    constructor(props){
-        super(props);
-    }
+import {Provider} from 'react-redux';
+import store from '../redux/Store'
 
+import SignIn from '../frontpage/signin/SignIn';
+
+class App extends React.Component{
     render(){
         return (
-            <div>
-
-            </div>
+            <Provider store={store}>
+                <div>
+                    <SignIn />
+                </div>
+            </Provider>
         );
     }
 }
+
+export default App;

@@ -1,20 +1,23 @@
 import React from 'react';
-
-import {Provider} from 'react-redux';
-import store from '../redux/Store'
-
-import SignIn from '../frontpage/signin/SignIn';
+import { connect } from 'react-redux';
+import FrontPage from '../frontpage/FrontPage';
 
 class App extends React.Component{
     render(){
+        if(!this.props.authenticated)
+            return (<FrontPage/>);
+
+            
         return (
-            <Provider store={store}>
-                <div>
-                    <SignIn />
-                </div>
-            </Provider>
+            <div>
+                abcd
+            </div>
         );
     }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    authenticated: state.auth.authenticated
+})
+
+export default connect(mapStateToProps, {})(App);

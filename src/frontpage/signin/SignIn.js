@@ -2,20 +2,26 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {setAuthStatus} from '../../actions/AuthActions';
+import {checkIfTokenIsValid} from './SignInAPI';
+import SignInForm from './SignInForm';
+
 
 class SignIn extends React.Component{
     componentWillMount(){
-        console.log("AuthStatus:" + this.props.authenticated);
-        this.props.setAuthStatus(true);
+        this.authenticateUsingCookies();
     }
 
-    componentDidUpdate(){
-        console.log("AuthStatus:" + this.props.authenticated);        
+    authenticateUsingCookies(){
+        if(checkIfTokenIsValid()){
+            this.props.setAuthStatus(true);
+        }
     }
 
     render(){
         return (
-            <div>SignIn component</div>
+            <div>
+                <SignInForm/>
+            </div>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {setAuthStatus} from '../../actions/AuthActions';
+import {setAuthStatus} from '../../redux/actions/AuthActions';
 import {checkIfTokenIsValid} from './SignInAPI';
 import SignInForm from './SignInForm';
 
@@ -12,9 +12,10 @@ class SignIn extends React.Component{
     }
 
     authenticateUsingCookies(){
-        if(checkIfTokenIsValid()){
-            this.props.setAuthStatus(true);
-        }
+        checkIfTokenIsValid().then(status => {
+            if(status)
+                this.props.setAuthStatus(true);
+        })
     }
 
     render(){

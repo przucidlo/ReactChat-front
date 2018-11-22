@@ -18,14 +18,12 @@ export async function signIn(username, password){
 }
 
 export async function checkIfTokenIsValid(){
-    if(Cookies.get('Authorization') !== null){
-        return fetch(appConfig.apiUrl + "secure/cookieTest", {
-            method: 'GET',
-            headers:{
-                'Authorization': Cookies.get('Authorization')
-            }
+    return fetch(appConfig.apiUrl + "secure/cookieTest", {
+        method: 'GET',
+        headers:{
+            'Authorization': Cookies.get('Authorization')
+        }
         }).then(response => {
             return response.ok;
         })
-    }
 }

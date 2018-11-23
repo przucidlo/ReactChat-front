@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import FrontPage from '../frontpage/FrontPage';
+import ChatRoomList from './chatroomlist/ChatRoomList';
 
 class App extends React.Component{
     render(){
@@ -10,7 +11,7 @@ class App extends React.Component{
             
         return (
             <div>
-                abcd
+                <ChatRoomList />
             </div>
         );
     }

@@ -1,2 +1,4 @@
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 export const GET_AUTH_STATUS = 'GET_AUTH_STATUS';
+export const ADD_CHAT_ROOM = 'ADD_CHAT_ROOM';
+export const ADD_MESSEAGE = 'ADD_MESSEAGE';

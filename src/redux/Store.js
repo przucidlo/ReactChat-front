@@ -8,4 +8,5 @@ const middleware = [thunk, socketMiddleware('http://localhost:8080/api/secure/en
 
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
 
+
 export default store;

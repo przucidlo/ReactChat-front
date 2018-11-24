@@ -6,7 +6,7 @@ export const initializeConnection = () => dispatch => {
     })
 }
 
-export const subscribe = (url, callback) => dispatch => {
+export const socketSubscribe = (url, callback) => dispatch => {
     dispatch({
         type: SOCKET_SUBSCRIBE,
         url: url,

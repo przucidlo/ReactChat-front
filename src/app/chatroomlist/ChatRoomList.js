@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {addChatRoom, addMessage} from '../../redux/actions/ChatRoomActions';
-import {socketSubscribe} from '../../redux/actions/SocketActions';
+import {socketSubscribe, socketSend} from '../../redux/actions/SocketActions';
 
 class ChatRoomList extends React.Component{
     componentWillMount(){
@@ -10,8 +10,8 @@ class ChatRoomList extends React.Component{
 
     testSubscribe(){
         this.props.socketSubscribe('/user/topic/chatroom/list', (payload) => {
-            console.log(payload);
         })
+        this.props.socketSend('/websocket/request/chatroom/list');
     }
 
     render(){
@@ -30,4 +30,4 @@ const mapStateToProps = state => ({
     authenticated: state.auth.authenticated
 })
 
-export default connect(mapStateToProps, {addChatRoom, addMessage, socketSubscribe})(ChatRoomList);
+export default connect(mapStateToProps, {addChatRoom, addMessage, socketSubscribe, socketSend})(ChatRoomList);

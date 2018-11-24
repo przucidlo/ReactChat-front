@@ -1,7 +1,7 @@
 import SockJs from 'sockjs-client'
 import Stomp from 'stompjs';
 
-import {SOCKET_CONNECT, SOCKET_SUBSCRIBE} from './actions/Types'; 
+import {SOCKET_CONNECT, SOCKET_SUBSCRIBE, SOCKET_SEND} from './actions/Types'; 
 
 export const socketMiddleware = (url) => {
     return store => {
@@ -34,6 +34,10 @@ export const socketMiddleware = (url) => {
                     stompClient.subscribe(action.url, (payload) => {
                         action.callback(payload);
                     })
+                    break;
+                }
+                case SOCKET_SEND:{
+                    stompClient.send(action.url, action.headers, action.body);
                     break;
                 }
                 default:

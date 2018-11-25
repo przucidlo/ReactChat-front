@@ -41,6 +41,7 @@ class ChatRoomList extends React.Component{
 ChatRoomList.propTypes = {
     chatRooms: PropTypes.array,
     addChatRoom: PropTypes.func,
+    updateChatRoom: PropTypes.func,
     socketSubscribe: PropTypes.func,
     socketSend: PropTypes.func
 }

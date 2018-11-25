@@ -51,12 +51,3 @@ export default function(state = initialState, action){
             return state;
     }
 }
-
-/**
- *                             'id': action.id,
-                            'name': action.name,
-                            'description': action.description,
-                            'roomType': action.roomType,
-                            'status': action.status,
-                            'messages': chatRoom.messages
- */

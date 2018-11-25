@@ -4,5 +4,5 @@ import chatRoomReducer from './ChatRoomReducer';
 
 export default combineReducers({
     auth: authReducer,
-    chatRooms:chatRoomReducer
+    rooms: chatRoomReducer
 })

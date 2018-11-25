@@ -1,33 +1,52 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addChatRoom, addMessage} from '../../redux/actions/ChatRoomActions';
+import {addChatRoom, updateChatRoom} from '../../redux/actions/ChatRoomActions';
 import {socketSubscribe, socketSend} from '../../redux/actions/SocketActions';
+import {fetchUserChatRoomList, subscribeChatRoomListTopic} from './ChatRoomListAPI';
 
 class ChatRoomList extends React.Component{
+    constructor(props){
+        super(props);
+        this.displayList = this.displayList.bind(this);
+        this.getChatRoomList = this.getChatRoomList.bind(this);
+    }
+    
     componentWillMount(){
-        this.testSubscribe();
+        subscribeChatRoomListTopic(this.props.socketSubscribe, this.props.addChatRoom, this.props.updateChatRoom, this.getChatRoomList);
+        fetchUserChatRoomList(this.props.socketSend);
     }
 
-    testSubscribe(){
-        this.props.socketSubscribe('/user/topic/chatroom/list', (payload) => {
-        })
-        this.props.socketSend('/websocket/request/chatroom/list');
+    getChatRoomList(){
+        return this.props.chatRooms;
     }
 
     render(){
         return (
             <div>
-                ChatRoomList
+                {this.displayList()}
             </div>
         );
+    }
+
+    displayList(){
+        return this.props.chatRooms.map((chatRoom) => 
+            <div key={chatRoom.id}>
+                {chatRoom.name}
+            </div>
+        )
     }
 }
 
 ChatRoomList.propTypes = {
+    chatRooms: PropTypes.array,
+    addChatRoom: PropTypes.func,
+    socketSubscribe: PropTypes.func,
+    socketSend: PropTypes.func
 }
 
 const mapStateToProps = state => ({
-    authenticated: state.auth.authenticated
+    chatRooms: state.rooms.chatRooms
 })
 
-export default connect(mapStateToProps, {addChatRoom, addMessage, socketSubscribe, socketSend})(ChatRoomList);
+export default connect(mapStateToProps, {addChatRoom, updateChatRoom, socketSubscribe, socketSend})(ChatRoomList);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addChatRoom, updateChatRoom} from '../../redux/actions/ChatRoomActions';
+import {addChatRoom, updateChatRoom, selectChatRoom} from '../../redux/actions/ChatRoomActions';
 import {socketSubscribe, socketSend} from '../../redux/actions/SocketActions';
 import {fetchUserChatRoomList, subscribeChatRoomListTopic} from './ChatRoomListAPI';
 
@@ -31,7 +31,7 @@ class ChatRoomList extends React.Component{
 
     displayList(){
         return this.props.chatRooms.map((chatRoom) => 
-            <div key={chatRoom.id}>
+            <div key={chatRoom.id} onClick={() => { this.props.selectChatRoom(chatRoom.id)}}>
                 {chatRoom.name}
             </div>
         )
@@ -50,4 +50,4 @@ const mapStateToProps = state => ({
     chatRooms: state.rooms.chatRooms
 })
 
-export default connect(mapStateToProps, {addChatRoom, updateChatRoom, socketSubscribe, socketSend})(ChatRoomList);
+export default connect(mapStateToProps, {addChatRoom, updateChatRoom, selectChatRoom, socketSubscribe, socketSend})(ChatRoomList);

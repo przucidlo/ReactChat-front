@@ -1,6 +1,7 @@
-import {ADD_CHAT_ROOM, ADD_MESSEAGE, UPDATE_CHAT_ROOM} from '../actions/Types';
+import {ADD_CHAT_ROOM, ADD_MESSEAGE, UPDATE_CHAT_ROOM, SELECT_CHAT_ROOM} from '../actions/Types';
 
 const initialState = {
+    focusedChatRoomId: null,
     chatRooms: []
 }
 
@@ -30,6 +31,11 @@ export default function(state = initialState, action){
                         'messages': chatRoom.messages
                     } : chatRoom)
             }
+        case SELECT_CHAT_ROOM:
+            return Object.assign({}, state, {
+                ...state,
+                focusedChatRoomId: action.id
+            })
         case ADD_MESSEAGE:
             return Object.assign({}, state, {
                 chatRooms: state.chatRooms.map((chatRoom) => {

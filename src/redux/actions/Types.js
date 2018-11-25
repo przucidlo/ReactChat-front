@@ -3,6 +3,7 @@ export const GET_AUTH_STATUS = 'GET_AUTH_STATUS';
 
 export const ADD_CHAT_ROOM = 'ADD_CHAT_ROOM';
 export const UPDATE_CHAT_ROOM = 'UPDATE_CHAT_ROOM';
+export const SELECT_CHAT_ROOM = 'SELECT_CHAT_ROOM';
 export const ADD_MESSEAGE = 'ADD_MESSEAGE';
 
 export const SOCKET_CONNECT = 'SOCKET_CONNECT';

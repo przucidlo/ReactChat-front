@@ -1,4 +1,4 @@
-import {ADD_CHAT_ROOM, ADD_MESSEAGE, UPDATE_CHAT_ROOM} from '../actions/Types';
+import {ADD_CHAT_ROOM, ADD_MESSEAGE, UPDATE_CHAT_ROOM, SELECT_CHAT_ROOM} from '../actions/Types';
 
 export const addChatRoom = (id, name, description, roomType, status) => dispatch => {
     dispatch({
@@ -19,6 +19,13 @@ export const updateChatRoom = (id, name, description, roomType, status) => dispa
         description: description,
         roomType: roomType,
         status: status
+    })
+}
+
+export const selectChatRoom = (id) => dispatch => {
+    dispatch({
+        type: SELECT_CHAT_ROOM,
+        id: id
     })
 }
 

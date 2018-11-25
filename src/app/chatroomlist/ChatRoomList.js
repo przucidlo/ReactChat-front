@@ -21,20 +21,20 @@ class ChatRoomList extends React.Component{
         return this.props.chatRooms;
     }
 
-    render(){
-        return (
-            <div>
-                {this.displayList()}
-            </div>
-        );
-    }
-
     displayList(){
         return this.props.chatRooms.map((chatRoom) => 
             <div key={chatRoom.id} onClick={() => { this.props.selectChatRoom(chatRoom.id)}}>
                 {chatRoom.name}
             </div>
         )
+    }
+
+    render(){
+        return (
+            <div>
+                {this.displayList()}
+            </div>
+        );
     }
 }
 

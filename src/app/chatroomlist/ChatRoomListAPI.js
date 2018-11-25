@@ -9,12 +9,10 @@ export const subscribeChatRoomListTopic = (socketSubscribe, addChatRoom, updateC
 }
 
 const handleChatRoomListChange = (payload, addChatRoom, updateChatRoom, clientChatRoomList) => {
-    let chatRoomListJson;
+    let chatRoomListJson = JSON.parse(payload.body);
     
-    if(JSON.parse(payload.body) instanceof Array){
-        chatRoomListJson = JSON.parse(payload.body); 
-    }else{
-        chatRoomListJson = [JSON.parse(payload.body)]
+    if(!(chatRoomListJson instanceof Array)){
+        chatRoomListJson = [chatRoomListJson];
     }
 
     chatRoomListJson.forEach(chatRoom => {

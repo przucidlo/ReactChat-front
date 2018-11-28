@@ -6,10 +6,11 @@ export const initializeConnection = () => dispatch => {
     })
 }
 
-export const socketSubscribe = (url, callback) => dispatch => {
+export const socketSubscribe = (url, headers, callback) => dispatch => {
     dispatch({
         type: SOCKET_SUBSCRIBE,
         url: url,
+        headers: headers,
         callback: callback
     })
 }

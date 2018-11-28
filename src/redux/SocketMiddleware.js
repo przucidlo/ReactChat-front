@@ -33,7 +33,7 @@ export const socketMiddleware = (url) => {
                 case SOCKET_SUBSCRIBE:{
                     stompClient.subscribe(action.url, (payload) => {
                         action.callback(payload);
-                    })
+                    }, action.headers)
                     break;
                 }
                 case SOCKET_SEND:{

@@ -3,7 +3,7 @@ export const fetchUserChatRoomList = (socketSend) => {
 }
 
 export const subscribeChatRoomListTopic = (socketSubscribe, addChatRoom, updateChatRoom, clientChatRoomList) => {
-    socketSubscribe('/user/topic/chatroom/list', (payload) => {
+    socketSubscribe('/user/topic/chatRoomList', {} ,(payload) => {
         handleChatRoomListChange(payload, addChatRoom, updateChatRoom,clientChatRoomList);    
     })
 }

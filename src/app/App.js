@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FrontPage from '../frontpage/FrontPage';
 import ChatRoomList from './chatroomlist/ChatRoomList';
 import {initializeConnection} from '../redux/actions/SocketActions';
-import { ChatRoom } from './chatroom/ChatRoom';
+import ChatRoom  from './chatroom/ChatRoom';
 
 class App extends React.Component{
     componentDidUpdate(){

@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { socketSend, socketSubscribe } from '../../redux/actions/SocketActions';
 import { addMessage } from '../../redux/actions/ChatRoomActions';
 import { subscribeChatRoom, fetchLastMessages } from './ChatRoomAPI';
+import ChatRoomMessageForm from './ChatRoomMessageForm';
 
 class ChatRoom extends Component {
-    
     componentDidUpdate(oldProps) {
         const newProps = this.props;
 
@@ -24,7 +24,7 @@ class ChatRoom extends Component {
         return this.getChatRoomMessages(this.props.focusedChatRoomId).map((message) => {
             return (
                 <div key={message.id}>
-                    {message.time}|{message.author}: {message.content}
+                    {message.time} | {message.author}: {message.content}
                 </div>
             )
         })
@@ -49,6 +49,8 @@ class ChatRoom extends Component {
         return (
             <div>
                 {messages}
+                
+                <ChatRoomMessageForm />
             </div>
         )
     }

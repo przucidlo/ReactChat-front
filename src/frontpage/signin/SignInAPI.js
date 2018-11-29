@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import appConfig from '../../config/appConfig.json'
 
-export async function signIn(username, password){
+export const signIn = async (username, password, setAuthStatus) => {
     return fetch(appConfig.apiUrl + "signIn", {
         method: 'POST',
         mode: 'cors',
@@ -14,10 +14,19 @@ export async function signIn(username, password){
         })
     }).then(response => {
         return response;
+    }).then(response => {
+        if(response.ok){
+            handleSuccessfulSignIn(response.headers, setAuthStatus);
+        }
     });
 }
 
-export async function checkIfTokenIsValid(){
+const handleSuccessfulSignIn = (responseHeaders, setAuthStatus) => {
+    Cookies.set('Authorization', responseHeaders.get('Authorization'), {expires: 7, path:''});
+    setAuthStatus(true);
+}
+
+export const checkIfTokenIsValid = async () => {
     return fetch(appConfig.apiUrl + "secure/cookieTest", {
         method: 'GET',
         headers:{

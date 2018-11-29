@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {signIn} from './SignInAPI';
-import Cookies from 'js-cookie';
 import './SignIn.css';
 import {setAuthStatus} from '../../redux/actions/AuthActions';
 
@@ -23,17 +22,7 @@ class SignInForm extends Component {
      */
 
     performSignIn(){
-        signIn(this.state.username, this.state.password).then(response => {
-            if(response.ok){
-                this.handleSignInProcess(response.headers.get('Authorization'));
-            }
-        });
-    }
-
-    handleSignInProcess(token){
-        Cookies.set('Authorization', token, {expires: 7, path:''});
-        
-        this.props.setAuthStatus(true);
+        signIn(this.state.username, this.state.password, this.props.setAuthStatus);
     }
 
     /*

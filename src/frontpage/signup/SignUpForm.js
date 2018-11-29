@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { signUp } from './SignUpAPI';
+import { setAuthStatus } from '../../redux/actions/AuthActions';
 
 export class SignUpForm extends Component {
     constructor(props){
@@ -20,7 +22,7 @@ export class SignUpForm extends Component {
      */
 
     performSignUp(){
-
+        signUp(this.state.username, this.state.password, this.props.setAuthStatus);
     }
 
 
@@ -52,12 +54,16 @@ export class SignUpForm extends Component {
     }
 }
 
+SignUpForm.propTypes = {
+    setAuthStatus: PropTypes.func
+}
+
 const mapStateToProps = (state) => ({
   
 })
 
 const mapDispatchToProps = {
-  
+    setAuthStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)

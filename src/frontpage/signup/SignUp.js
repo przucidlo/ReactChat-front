@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { SignUpForm } from './SignUpForm';
+import SignUpForm from './SignUpForm';
 
 export class SignUp extends Component {
 
@@ -14,12 +13,4 @@ export class SignUp extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default connect()(SignUp)

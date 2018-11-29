@@ -14,9 +14,7 @@ export const signUp = async (username, password, setAuthStatus) => {
         })
     }).then((response => {
         return response;
-    })).then((response => {
-        console.log('sA' + setAuthStatus);
-        
+    })).then((response => {        
         checkIfSignUpWasSuccessful(username, password, response, setAuthStatus);
     }))
 }

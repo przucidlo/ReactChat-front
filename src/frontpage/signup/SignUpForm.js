@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {signIn} from './SignInAPI';
-import Cookies from 'js-cookie';
-import './SignIn.css';
-import {setAuthStatus} from '../../redux/actions/AuthActions';
 
-class SignInForm extends Component {
+export class SignUpForm extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -15,26 +12,17 @@ class SignInForm extends Component {
 
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.performSignIn = this.performSignIn.bind(this);
+        this.performSignUp = this.performSignUp.bind(this);
     }
 
     /*
-     *  SignIn process.
+     *  SignUp process.
      */
 
-    performSignIn(){
-        signIn(this.state.username, this.state.password).then(response => {
-            if(response.ok){
-                this.handleSignInProcess(response.headers.get('Authorization'));
-            }
-        });
+    performSignUp(){
+
     }
 
-    handleSignInProcess(token){
-        Cookies.set('Authorization', token, {expires: 7, path:''});
-        
-        this.props.setAuthStatus(true);
-    }
 
     /*
      *  Forms event handling.
@@ -57,15 +45,19 @@ class SignInForm extends Component {
                     <label>Password</label>
                     <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange}/>
                     <br />
-                    <button type="button" className="btn btn-primary" onClick={this.performSignIn} >SignIn</button>
+                    <button type="button" className="btn btn-secondary" onClick={this.performSignUp} >SignUp</button>
                 </div>
             </form>
         )
     }
 }
 
+const mapStateToProps = (state) => ({
+  
+})
+
 const mapDispatchToProps = {
-  setAuthStatus
+  
 }
 
-export default connect(null, mapDispatchToProps)(SignInForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)

@@ -47,6 +47,11 @@ class ChatRoomMessageForm extends Component {
     }
 }
 
+ChatRoomMessageForm.propTypes = {
+    focusedChatRoomId: PropTypes.number,
+    socketSend: PropTypes.func
+}
+
 const mapStateToProps = (state) => ({
     focusedChatRoomId: state.rooms.focusedChatRoomId
 })

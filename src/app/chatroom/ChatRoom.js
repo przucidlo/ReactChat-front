@@ -14,7 +14,7 @@ class ChatRoom extends Component {
             subscribeChatRoom(this.props.socketSubscribe, this.props.addMessage, this.props.focusedChatRoomId);
             
             
-            if(this.getChatRoomMessages(newProps.focusedChatRoomId).length == 0){
+            if(this.getChatRoomMessages(newProps.focusedChatRoomId).length === 0){
                 fetchLastMessages(this.props.socketSend, this.props.focusedChatRoomId);
             }
         }
@@ -49,11 +49,20 @@ class ChatRoom extends Component {
         return (
             <div>
                 {messages}
-                
+
                 <ChatRoomMessageForm />
             </div>
         )
     }
+}
+
+ChatRoom.propTypes = {
+    chatRooms: PropTypes.array,
+    focusedChatRoomId: PropTypes.number,
+
+    socketSend: PropTypes.func,
+    socketSubscribe: PropTypes.func,
+    addMessage: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({

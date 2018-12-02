@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addChatRoom, updateChatRoom, selectChatRoom} from '../../redux/actions/ChatRoomActions';
-import {socketSubscribe, socketSend} from '../../redux/actions/SocketActions';
+import {addChatRoom, updateChatRoom, selectChatRoom} from '../../../redux/actions/ChatRoomActions';
+import {socketSubscribe, socketSend} from '../../../redux/actions/SocketActions';
 import {fetchUserChatRoomList, subscribeChatRoomListTopic} from './ChatRoomListAPI';
 
 class ChatRoomList extends React.Component{

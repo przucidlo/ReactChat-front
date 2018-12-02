@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import FrontPage from '../frontpage/FrontPage';
-import ChatRoomList from './chatroomlist/ChatRoomList';
+import ChatRoomList from './chatroom/list/ChatRoomList';
 import {initializeConnection} from '../redux/actions/SocketActions';
 import ChatRoom  from './chatroom/ChatRoom';
 

@@ -6,6 +6,8 @@ import { addMessage } from '../../redux/actions/ChatRoomActions';
 import { subscribeChatRoom, fetchLastMessages } from './ChatRoomAPI';
 import ChatRoomMessageForm from './ChatRoomMessageForm';
 
+import ChatRoomCreator from './creator/ChatRoomCreator';
+
 class ChatRoom extends Component {
     componentDidUpdate(oldProps) {
         const newProps = this.props;
@@ -48,6 +50,7 @@ class ChatRoom extends Component {
 
         return (
             <div>
+                <ChatRoomCreator />
                 {messages}
 
                 <ChatRoomMessageForm />

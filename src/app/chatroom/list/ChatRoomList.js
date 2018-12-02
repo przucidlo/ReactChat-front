@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {addChatRoom, updateChatRoom, selectChatRoom} from '../../../redux/actions/ChatRoomActions';
 import {socketSubscribe, socketSend} from '../../../redux/actions/SocketActions';
 import {fetchUserChatRoomList, subscribeChatRoomListTopic} from './ChatRoomListAPI';
+import ChatRoomEditor from '../editor/ChatRoomEditor';
 
 class ChatRoomList extends React.Component{
     constructor(props){
@@ -23,8 +24,9 @@ class ChatRoomList extends React.Component{
 
     displayList(){
         return this.props.chatRooms.map((chatRoom) => 
-            <div key={chatRoom.id} onClick={() => { this.props.selectChatRoom(chatRoom.id)}}>
-                {chatRoom.name}
+            <div key={chatRoom.id} >
+                <a onClick={() => { this.props.selectChatRoom(chatRoom.id)}}>{chatRoom.name}</a>
+                <ChatRoomEditor chatRoomId={chatRoom.id}/>
             </div>
         )
     }

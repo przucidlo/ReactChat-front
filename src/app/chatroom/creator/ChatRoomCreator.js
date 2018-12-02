@@ -1,18 +1,19 @@
-import React, { Component, useRef } from 'react'
+import React, { Component} from 'react'
 import ChatRoomModal from './ChatRoomModal';
 
 export default class ChatRoomCreator extends Component {
 
   constructor(props) {
     super(props);
-    this.childRef = React.createRef();
+    this.modalRef = React.createRef();
   }
 
   render() {
     return (
       <div>
-        <ChatRoomModal ref={this.childRef} />
-        <button type="button" class="btn btn-primary" onClick={() => { this.childRef.current.toggle() }}>Create ChatRoom</button>
+        <ChatRoomModal ref={this.modalRef} chatRoomId={this.props.chatRoomId}/>
+        
+        <button type="button" class="btn btn-primary" onClick={() => { this.modalRef.current.toggle() }}>Create ChatRoom</button>
       </div>
     )
   }

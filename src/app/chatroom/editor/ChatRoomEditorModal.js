@@ -10,7 +10,8 @@ class ChatRoomEditorModal extends Component {
         this.state = {
             modal: false,
             nameInput: '',
-            descInput: ''
+            descInput: '',
+            alert: ''
         }
         this.toggle = this.toggle.bind(this);
         this.handleNameInput = this.handleNameInput.bind(this);
@@ -27,7 +28,9 @@ class ChatRoomEditorModal extends Component {
      */
 
     editChatRoom() {
-        editChatRoom(this.props.chatRoomId, this.state.nameInput, this.state.descInput);
+        editChatRoom(this.props.chatRoomId, this.state.nameInput, this.state.descInput).then(jsonResponse => {
+            this.handleResponseFromAPI(jsonResponse);
+        });
     }
 
     setFieldsValue() {
@@ -43,6 +46,23 @@ class ChatRoomEditorModal extends Component {
             if (chatRoom.id === this.props.chatRoomId) {
                 return chatRoom;
             }
+        }
+    }
+
+    handleResponseFromAPI(jsonResponse) {
+        switch (jsonResponse.response) {
+            case "INSUFFICIENT_RIGHTS":
+                this.setAlert('warning', "It seems that you don't have right to do that.");
+                break;
+            case "CHAT_ROOM_NAME_TAKEN":
+                this.setAlert('warning', "Well this name is already taken, think about something else.");
+                break;
+            case "CANT_UPDATE_CHAT_ROOM_THAT_DOESNT_EXIST":
+                this.setAlert('warning', "Are you trying to edit a room that doesn't exist?");
+                break;
+            case "CHAT_ROOM_UPDATED_SUCCESSFULLY":
+                this.setAlert('success', "ChatRoom has been edited successfully");
+                break;
         }
     }
 
@@ -68,12 +88,22 @@ class ChatRoomEditorModal extends Component {
         })
     }
 
+    setAlert(type, message) {
+        const alertClass = 'alert alert-' + type;
+        this.setState({
+            alert: <div className={alertClass} role='alert'>{message}</div>
+        })
+    }
+
     render() {
+        const alert = this.state.alert;
+
         return (
             <div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>Edit ChatRoom</ModalHeader>
                     <ModalBody>
+                        {alert}
                         <label>Name:</label>
                         <input type="text" className="form-control" value={this.state.nameInput} onChange={this.handleNameInput} />
                         <label>Description:</label>

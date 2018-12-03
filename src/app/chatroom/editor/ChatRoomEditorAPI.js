@@ -1,8 +1,8 @@
 import appConfig from '../../../config/appConfig.json';
 import Cookies from 'js-cookie';
 
-export const editChatRoom = (id, name, description) => {
-    fetch(appConfig.apiUrl + 'secure/chatroom', {
+export const editChatRoom = async (id, name, description) => {
+    return fetch(appConfig.apiUrl + 'secure/chatroom', {
         method: 'PUT',
         headers: {
             'Authorization': Cookies.get('Authorization'),
@@ -13,5 +13,9 @@ export const editChatRoom = (id, name, description) => {
             'name': name,
             'description': description
         })
+    }).then(response => {
+        return response.json();
+    }).then(jsonResponse => {
+        return jsonResponse;
     })
 }

@@ -10,11 +10,15 @@ class ChatRoomEditor extends Component {
     render() {
         return (
             <div>
-                <ChatRoomEditorModal ref='modal' chatRooomId={this.props.chatRooomId}/>
+                <ChatRoomEditorModal ref='modal' chatRoomId={this.props.chatRoomId}/>
                 <button type="button" class="btn btn-primary" onClick={() => { this.refs.modal.getWrappedInstance().toggle() }}>Edit</button>
             </div>
         )
     }
 }
 
-export default connect()(ChatRoomEditor);
+const mapStateToProps = (state, ownProps) => ({
+    chatRoomId: ownProps.chatRoomId
+})
+
+export default connect(mapStateToProps)(ChatRoomEditor);

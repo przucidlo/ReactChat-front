@@ -18,7 +18,7 @@ class App extends React.Component{
     
     render(){
         if(!this.props.authenticated)
-            return (<FrontPage/>);
+            return (<div className="h-100"><FrontPage/></div>);
 
             
         return (

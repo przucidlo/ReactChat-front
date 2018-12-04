@@ -9,3 +9,7 @@ html, body{
     display: flex;
     align-items: center;
 }
+
+.remove-padding{
+    padding: 0 !important;
+}

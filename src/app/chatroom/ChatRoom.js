@@ -49,8 +49,7 @@ class ChatRoom extends Component {
         }
 
         return (
-            <div>
-                <ChatRoomCreator />
+            <div className="h-100">
                 {messages}
 
                 <ChatRoomMessageForm />

@@ -21,7 +21,7 @@ class SignIn extends React.Component{
     render(){
         return (
             <div>
-                <SignInForm/>
+                <button type="button" class="btn btn-outline-primary">SignIn</button>
             </div>
         );
     }

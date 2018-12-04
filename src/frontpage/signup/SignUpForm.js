@@ -5,7 +5,7 @@ import { signUp } from './SignUpAPI';
 import { setAuthStatus } from '../../redux/actions/AuthActions';
 
 export class SignUpForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             username: '',
@@ -21,7 +21,7 @@ export class SignUpForm extends Component {
      *  SignUp process.
      */
 
-    performSignUp(){
+    performSignUp() {
         signUp(this.state.username, this.state.password, this.props.setAuthStatus);
     }
 
@@ -30,26 +30,22 @@ export class SignUpForm extends Component {
      *  Forms event handling.
      */
 
-    handleUsernameChange(event){
-        this.setState({username: event.target.value});
+    handleUsernameChange(event) {
+        this.setState({ username: event.target.value });
     }
 
-    handlePasswordChange(event){
-        this.setState({password: event.target.value});
+    handlePasswordChange(event) {
+        this.setState({ password: event.target.value });
     }
 
-    render(){
-        return(
-            <form className="form-size">
-                <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange}/>
-                    <label>Password</label>
-                    <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange}/>
-                    <br />
-                    <button type="button" className="btn btn-secondary" onClick={this.performSignUp} >SignUp</button>
-                </div>
-            </form>
+    render() {
+        return (
+            <div>
+                <label>Username</label>
+                <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange} />
+                <label>Password</label>
+                <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
+            </div>
         )
     }
 }
@@ -58,12 +54,8 @@ SignUpForm.propTypes = {
     setAuthStatus: PropTypes.func
 }
 
-const mapStateToProps = (state) => ({
-  
-})
-
 const mapDispatchToProps = {
     setAuthStatus
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)
+export default connect(null, mapDispatchToProps, null, {withRef: true})(SignUpForm)

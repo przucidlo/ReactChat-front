@@ -28,7 +28,7 @@ class SignInModal extends Component {
                         <SignInForm ref="signInForm"/>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => {this.refs.signInForm.getWrappedInstance().performSignIn()}}>SignIn</Button>{' '}
+                        <Button color="primary" onClick={() => {this.refs.signInForm.getWrappedInstance().performSignIn()}}>Submit</Button>{' '}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

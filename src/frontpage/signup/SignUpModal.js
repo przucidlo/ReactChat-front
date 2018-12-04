@@ -28,7 +28,7 @@ class SignUpModal extends Component {
                         <SignUpForm ref="signUpForm"/>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => {this.refs.signUpForm.getWrappedInstance().performSignUp()}}>SignUp</Button>{' '}
+                        <Button color="primary" onClick={() => {this.refs.signUpForm.getWrappedInstance().performSignUp()}}>Submit</Button>{' '}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {setAuthStatus} from '../../redux/actions/AuthActions';
 import {checkIfTokenIsValid} from './SignInAPI';
-import SignInForm from './SignInForm';
+import SignInModal from './SignInModal';
 
 
 class SignIn extends React.Component{
@@ -21,7 +21,8 @@ class SignIn extends React.Component{
     render(){
         return (
             <div>
-                <button type="button" class="btn btn-outline-primary">SignIn</button>
+                <SignInModal ref="modal"/>
+                <button type="button" class="btn btn-outline-primary" onClick={() => {this.refs.modal.getWrappedInstance().toggle()}}>SignIn</button>
             </div>
         );
     }

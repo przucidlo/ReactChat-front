@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {signIn} from './SignInAPI';
+import { signIn } from './SignInAPI';
 import './SignIn.css';
-import {setAuthStatus} from '../../redux/actions/AuthActions';
+import { setAuthStatus } from '../../redux/actions/AuthActions';
 
 class SignInForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             username: '',
@@ -21,7 +21,7 @@ class SignInForm extends Component {
      *  SignIn process.
      */
 
-    performSignIn(){
+    performSignIn() {
         signIn(this.state.username, this.state.password, this.props.setAuthStatus);
     }
 
@@ -29,32 +29,28 @@ class SignInForm extends Component {
      *  Forms event handling.
      */
 
-    handleUsernameChange(event){
-        this.setState({username: event.target.value});
+    handleUsernameChange(event) {
+        this.setState({ username: event.target.value });
     }
 
-    handlePasswordChange(event){
-        this.setState({password: event.target.value});
+    handlePasswordChange(event) {
+        this.setState({ password: event.target.value });
     }
 
-    render(){
-        return(
-            <form className="form-size">
-                <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange}/>
-                    <label>Password</label>
-                    <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange}/>
-                    <br />
-                    <button type="button" className="btn btn-primary" onClick={this.performSignIn} >SignIn</button>
-                </div>
-            </form>
+    render() {
+        return (
+            <div>
+                <label>Username</label>
+                <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange} />
+                <label>Password</label>
+                <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
+            </div>
         )
     }
 }
 
 const mapDispatchToProps = {
-  setAuthStatus
+    setAuthStatus
 }
 
-export default connect(null, mapDispatchToProps)(SignInForm)
+export default connect(null, mapDispatchToProps, null, { withRef: true })(SignInForm)

@@ -6,6 +6,8 @@ import { socketSubscribe, socketSend } from '../../../redux/actions/SocketAction
 import { fetchUserChatRoomList, subscribeChatRoomListTopic } from './ChatRoomListAPI';
 import './ChatRoomListStyle.css';
 import ChatRoomEditor from '../editor/ChatRoomEditor';
+import ChatRoomCreator from '../creator/ChatRoomCreator';
+import ChatRoomJoin from '../join/ChatRoomJoin';
 
 
 class ChatRoomList extends React.Component {
@@ -26,15 +28,25 @@ class ChatRoomList extends React.Component {
 
     displayList() {
         return this.props.chatRooms.map((chatRoom) =>
-            <a onClick={() => { this.props.selectChatRoom(chatRoom.id) }} className="list-group-item list-group-item-action">{chatRoom.name}</a>
+            <div key={chatRoom.id} onClick={() => { this.props.selectChatRoom(chatRoom.id) }} className="room">
+                {chatRoom.name}
+            </div>
         )
     }
 
     render() {
         return (
-            <div className="h-100 component-background">
-                <div className="list-group">
+            <div className="h-100 component-background d-flex flex-column">
+                <div className="site-logo"><h2>ReactChat</h2></div>
+                <h5 className="public-category">Public:</h5>
+                <div className="room-list d-flex flex-fill flex-column flex-grow-1">
+                    
                     {this.displayList()}
+                </div>
+                <div className="d-flex flex-shrink-1 button-bar">
+                    <ChatRoomCreator />
+                    <div className="divider"/>
+                    <ChatRoomJoin />
                 </div>
             </div>
         );

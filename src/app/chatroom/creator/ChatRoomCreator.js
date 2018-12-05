@@ -13,7 +13,7 @@ export default class ChatRoomCreator extends Component {
       <div>
         <ChatRoomModal ref={this.modalRef} chatRoomId={this.props.chatRoomId}/>
         
-        <button type="button" class="btn btn-primary" onClick={() => { this.modalRef.current.toggle() }}>Create ChatRoom</button>
+        <button type="button" class="btn btn-primary" onClick={() => { this.modalRef.current.toggle() }}>Create</button>
       </div>
     )
   }

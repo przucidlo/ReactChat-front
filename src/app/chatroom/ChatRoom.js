@@ -7,6 +7,7 @@ import { subscribeChatRoom, fetchLastMessages } from './ChatRoomAPI';
 import ChatRoomMessageForm from './ChatRoomMessageForm';
 import ChatRoomTopBar from './ChatRoomTopBar';
 import './ChatRoomStyle.css';
+import sampleAvatar from './assets/sample_avatar.png';
 
 class ChatRoom extends Component {
     componentDidUpdate(oldProps) {
@@ -25,8 +26,19 @@ class ChatRoom extends Component {
     renderMessages() {
         return this.getChatRoomMessages(this.props.focusedChatRoomId).map((message) => {
             return (
-                <div key={message.id}>
-                    {message.time} | {message.author}: {message.content}
+                <div key={message.id} className="chat-message">
+                    <div className="d-flex">
+                        <img className="chat-message-avatar" src={sampleAvatar}></img>
+                        <div className="chat-message-author">
+                            {message.author}
+                        </div>
+                        <div className="chat-message-date">
+                            {message.time}
+                        </div>
+                    </div>
+                    <div className="chat-message-content d-flex align-items-end">
+                        {message.content}
+                    </div>
                 </div>
             )
         })
@@ -53,7 +65,7 @@ class ChatRoom extends Component {
                 <div className="flex-fill d-flex">
                     <ChatRoomTopBar />
                 </div>
-                
+
                 <div className="h-100 d-flex flex-fill flex-column flex-grow-1 chat-content">
                     {messages}
                 </div>

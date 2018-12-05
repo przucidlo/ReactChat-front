@@ -29,7 +29,7 @@ class App extends React.Component {
                     <div className="col-sm-4 col-md-4 col-lg-4 col-xl-2 h-100 remove-padding fill">
                         <ChatRoomList />
                     </div>
-                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 remove-padding">
+                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-10 remove-padding h-100">
                         <ChatRoom />
                     </div>
                 </div>

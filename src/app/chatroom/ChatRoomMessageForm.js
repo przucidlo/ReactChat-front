@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { socketSend } from '../../redux/actions/SocketActions';
 import { sendChatMessage } from './ChatRoomAPI';
+import './ChatRoomStyle.css';
 
 class ChatRoomMessageForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        
+
         this.state = {
             chatFormInput: ''
         }
@@ -16,33 +17,31 @@ class ChatRoomMessageForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleMessageInput(event){
-        this.setState({chatFormInput: event.target.value});
+    handleMessageInput(event) {
+        this.setState({ chatFormInput: event.target.value });
     }
-    
-    handleSubmit(event){
+
+    handleSubmit(event) {
         event.preventDefault();
 
         this.sendMessage();
     }
 
-    sendMessage(){
+    sendMessage() {
         sendChatMessage(this.props.socketSend, this.props.focusedChatRoomId, this.state.chatFormInput);
 
         this.clearMessageInput();
     }
 
-    clearMessageInput(){
-        this.setState({chatFormInput: ''});
+    clearMessageInput() {
+        this.setState({ chatFormInput: '' });
     }
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" className="form-control" value={this.state.chatFormInput} onChange={this.handleMessageInput}/>
-                </form>
-            </div>
+            <form onSubmit={this.handleSubmit} className="chat-message-form">
+                <input type="text" className="form-control" value={this.state.chatFormInput} onChange={this.handleMessageInput}/>
+            </form>
         )
     }
 }

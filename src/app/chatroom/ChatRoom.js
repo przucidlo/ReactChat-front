@@ -5,16 +5,18 @@ import { socketSend, socketSubscribe } from '../../redux/actions/SocketActions';
 import { addMessage } from '../../redux/actions/ChatRoomActions';
 import { subscribeChatRoom, fetchLastMessages } from './ChatRoomAPI';
 import ChatRoomMessageForm from './ChatRoomMessageForm';
+import ChatRoomTopBar from './ChatRoomTopBar';
+import './ChatRoomStyle.css';
 
 class ChatRoom extends Component {
     componentDidUpdate(oldProps) {
         const newProps = this.props;
 
-        if(oldProps.focusedChatRoomId !== newProps.focusedChatRoomId) {
+        if (oldProps.focusedChatRoomId !== newProps.focusedChatRoomId) {
             subscribeChatRoom(this.props.socketSubscribe, this.props.addMessage, this.props.focusedChatRoomId);
-            
-            
-            if(this.getChatRoomMessages(newProps.focusedChatRoomId).length === 0){
+
+
+            if (this.getChatRoomMessages(newProps.focusedChatRoomId).length === 0) {
                 fetchLastMessages(this.props.socketSend, this.props.focusedChatRoomId);
             }
         }
@@ -30,11 +32,11 @@ class ChatRoom extends Component {
         })
     }
 
-    getChatRoomMessages(id){
-        for(let key in this.props.chatRooms) {
+    getChatRoomMessages(id) {
+        for (let key in this.props.chatRooms) {
             let chatRoom = this.props.chatRooms[key];
 
-            if(chatRoom.id === id) {
+            if (chatRoom.id === id) {
                 return chatRoom.messages;
             }
         }
@@ -42,15 +44,23 @@ class ChatRoom extends Component {
 
     render() {
         let messages;
-        if(this.props.focusedChatRoomId !== null) {
+        if (this.props.focusedChatRoomId !== null) {
             messages = this.renderMessages();
         }
 
         return (
-            <div className="h-100">
-                {messages}
+            <div className="h-100 d-flex flex-column">
+                <div className="flex-fill d-flex">
+                    <ChatRoomTopBar />
+                </div>
+                
+                <div className="h-100 d-flex flex-fill flex-column flex-grow-1 chat-content">
+                    {messages}
+                </div>
 
-                <ChatRoomMessageForm />
+                <div className="d-flex flex-shrink-1 flex-fill">
+                    <ChatRoomMessageForm />
+                </div>
             </div>
         )
     }

@@ -19,3 +19,14 @@ export const editChatRoom = async (id, name, description) => {
         return jsonResponse;
     })
 }
+
+export const getUserRoomRight = async (roomId) => {
+    return fetch(appConfig.apiUrl + 'secure/user/role?roomId=' + roomId, {
+        method: 'GET',
+        headers: {
+            'Authorization': Cookies.get('Authorization')
+        }
+    }).then(response => {
+        return response.json();
+    })
+}

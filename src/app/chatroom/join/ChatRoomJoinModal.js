@@ -94,6 +94,10 @@ class ChatRoomJoinModal extends Component {
     }
 
     prepareEachChatRoomForDisplay() {
+        if(this.state.roomList.length === 0){
+            return (<div>Well there is not rooms you can join at this momement, you might consider creating your own room!</div>)
+        }
+        
         return this.state.roomList.map((chatRoom) => {
             let isUserMemberOfThisRoom = this.isUserMemberOfThisChatRoom(chatRoom.id); 
             

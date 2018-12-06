@@ -30,6 +30,8 @@ class ChatRoomList extends React.Component {
     displayList() {
         return this.props.chatRooms.map((chatRoom) =>
             <div key={chatRoom.id} onClick={() => { this.props.selectChatRoom(chatRoom.id) }} className="room">
+                <ChatRoomEditor chatRoomId={chatRoom.id} />
+                
                 {chatRoom.name}
             </div>
         )
@@ -41,14 +43,14 @@ class ChatRoomList extends React.Component {
                 <div className="site-logo"><h2>ReactChat</h2></div>
                 <h5 className="public-category">Public:</h5>
                 <div className="room-list d-flex flex-fill flex-column flex-grow-1">
-                    
+
                     {this.displayList()}
                 </div>
                 <div className="d-flex flex-shrink-1 button-bar">
                     <ChatRoomCreator />
-                    <div className="divider"/>
+                    <div className="divider" />
                     <ChatRoomJoin />
-                    <div className="divider"/>
+                    <div className="divider" />
                     <LogoutButton />
                 </div>
             </div>

@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import './ChatRoomJoinStyle.css';
+import ChatRoomJoinModal from './ChatRoomJoinModal';
+import {connect} from 'react-redux';
 
-export default class ChatRoomJoin extends Component {
+class ChatRoomJoin extends Component {
   render() {
     return (
       <div>
-        <button type="button" class="btn btn-primary join-button" >Join</button>
+        <ChatRoomJoinModal ref='modal' />
+        <button type="button" class="btn btn-primary join-button" onClick={() => { this.refs.modal.getWrappedInstance().toggle() }}>Join</button>
       </div>
     )
   }
 }
+
+export default connect()(ChatRoomJoin);

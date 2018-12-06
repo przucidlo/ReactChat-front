@@ -1,5 +1,6 @@
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 export const GET_AUTH_STATUS = 'GET_AUTH_STATUS';
+export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const ADD_CHAT_ROOM = 'ADD_CHAT_ROOM';
 export const UPDATE_CHAT_ROOM = 'UPDATE_CHAT_ROOM';

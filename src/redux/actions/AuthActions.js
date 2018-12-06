@@ -1,4 +1,4 @@
-import {SET_AUTH_STATUS} from './Types.js';
+import {SET_AUTH_STATUS, USER_LOGOUT} from './Types.js';
 
 export const setAuthStatus = (status) => dispatch => {
     dispatch({
@@ -6,3 +6,9 @@ export const setAuthStatus = (status) => dispatch => {
         payload: status
     });
 };
+
+export const userLogout = () => dispatch => {
+    dispatch({
+        type: USER_LOGOUT
+    })
+}

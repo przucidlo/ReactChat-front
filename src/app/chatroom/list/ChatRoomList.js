@@ -8,6 +8,7 @@ import './ChatRoomListStyle.css';
 import ChatRoomEditor from '../editor/ChatRoomEditor';
 import ChatRoomCreator from '../creator/ChatRoomCreator';
 import ChatRoomJoin from '../join/ChatRoomJoin';
+import LogoutButton from '../../logout/LogoutButton';
 
 
 class ChatRoomList extends React.Component {
@@ -47,6 +48,8 @@ class ChatRoomList extends React.Component {
                     <ChatRoomCreator />
                     <div className="divider"/>
                     <ChatRoomJoin />
+                    <div className="divider"/>
+                    <LogoutButton />
                 </div>
             </div>
         );

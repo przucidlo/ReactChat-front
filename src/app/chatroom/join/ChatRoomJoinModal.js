@@ -43,6 +43,7 @@ class ChatRoomJoinModal extends Component {
     joinChatRoom(id){
         joinChatRoom(id).then(jsonResponse => {
             this.handleResponseFromAPI(jsonResponse);
+            this.forceUpdate();
         })
     }
 
@@ -66,7 +67,8 @@ class ChatRoomJoinModal extends Component {
 
     toggle() {
         this.setState({
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            alert: ''
         })
 
         if (this.state.modal) {

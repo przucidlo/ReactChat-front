@@ -18,8 +18,12 @@ const handleMessageResponse = (addMessage, payload, chatRoomId) => {
     messageJson.reverse();
 
     messageJson.forEach(message => {
-        addMessage(chatRoomId, message.id, message.author, message.content, message.time);            
+        addMessage(chatRoomId, message.id, message.author, message.content, formatTime(message.time));            
     });
+}
+
+const formatTime = (time) => {
+    return time.replace("T", " ").substring(0, time.length - 9);
 }
 
 export const fetchLastMessages = (socketSend, chatRoomId) => {

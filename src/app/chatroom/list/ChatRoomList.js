@@ -29,10 +29,9 @@ class ChatRoomList extends React.Component {
 
     displayList() {
         return this.props.chatRooms.map((chatRoom) =>
-            <div key={chatRoom.id} onClick={() => { this.props.selectChatRoom(chatRoom.id) }} className="room">
+            <div key={chatRoom.id} className="room">
                 <ChatRoomEditor chatRoomId={chatRoom.id} />
-                
-                {chatRoom.name}
+                <div onClick={() => { this.props.selectChatRoom(chatRoom.id) }}>{chatRoom.name}</div >
             </div>
         )
     }

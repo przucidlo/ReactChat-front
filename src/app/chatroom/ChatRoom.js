@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { socketSend, socketSubscribe } from '../../redux/actions/SocketActions';
@@ -10,6 +11,19 @@ import './ChatRoomStyle.css';
 import sampleAvatar from './assets/sample_avatar.png';
 
 class ChatRoom extends Component {
+    constructor(props) {
+        super(props);
+
+        this.lastChatMessageRef = React.createRef();
+        this.messageDivRef = React.createRef();
+        this.messageDOM = null;
+        this.isMessageContainerScrolledToTop = false;
+    }
+
+    componentDidMount() {
+        this.messageDOM = ReactDOM.findDOMNode(this.messageDivRef.current);
+    }
+
     componentDidUpdate(oldProps) {
         const newProps = this.props;
 
@@ -21,12 +35,18 @@ class ChatRoom extends Component {
                 fetchLastMessages(this.props.socketSend, this.props.focusedChatRoomId);
             }
         }
+
+        if (this.lastChatMessageRef !== null) {
+            this.scrollToLastMessage();
+        }
     }
 
     renderMessages() {
+        this.checkIfUserIsReadingPreviousMessages();
+        
         return this.getChatRoomMessages(this.props.focusedChatRoomId).map((message) => {
             return (
-                <div key={message.id} className="chat-message">
+                <div key={message.id} className="chat-message" ref={this.lastChatMessageRef}>
                     <div className="d-flex">
                         <img className="chat-message-avatar" src={sampleAvatar}></img>
                         <div className="chat-message-author">
@@ -54,6 +74,31 @@ class ChatRoom extends Component {
         }
     }
 
+    /**
+     * AutoScroll (I will move it to separate file in future updates.)
+     */
+
+    scrollToLastMessage() {
+        if (!this.isMessageContainerScrolledToTop) {
+            const myDomNode = ReactDOM.findDOMNode(this.lastChatMessageRef.current);
+            if (myDomNode !== null)
+                myDomNode.scrollIntoView();
+        }
+    }
+
+    checkIfUserIsReadingPreviousMessages() {
+        if (this.messageDOM !== null) {
+            let currentScrollPosition = this.messageDOM.scrollTop;
+            let totalScrollHeight = this.messageDOM.scrollHeight - this.messageDOM.clientHeight;
+
+            if (currentScrollPosition < totalScrollHeight)
+                this.isMessageContainerScrolledToTop = true;
+            else
+                this.isMessageContainerScrolledToTop = false;
+        }
+    }
+
+
     render() {
         let messages;
         if (this.props.focusedChatRoomId !== null) {
@@ -66,7 +111,7 @@ class ChatRoom extends Component {
                     <ChatRoomTopBar />
                 </div>
 
-                <div className="h-100 d-flex flex-fill flex-column flex-grow-1 chat-content">
+                <div className="h-100 d-flex flex-fill flex-column flex-grow-1 chat-content" ref={this.messageDivRef}>
                     {messages}
                 </div>
 

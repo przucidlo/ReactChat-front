@@ -1,9 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './misc/index.css';
 import registerServiceWorker from './registerServiceWorker';
-import Chat from './App'
+import App from './app/App';
+import './config/globalStyle.css';
 
-ReactDOM.render(<Chat/>,document.getElementById('root'));
+import {Provider} from 'react-redux';
+import store from './redux/Store'
+
+ReactDOM.render(            
+    <Provider store={store}>
+        <App/>
+    </Provider>
+, document.getElementById("root"));
+
 registerServiceWorker();

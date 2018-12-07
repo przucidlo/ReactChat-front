@@ -1,7 +1,12 @@
 
 export const subscribeChatRoom = (socketSubscribe, addMessage, chatRoomId) => {
+    let alreadyFetchedLastMessages = false;
+    
     socketSubscribe('/user/topic/chatroom/' + chatRoomId, {id: 'user-chatroom-' + chatRoomId}, (payload) => {
-        handleMessageResponse(addMessage, payload, chatRoomId)
+        if(!alreadyFetchedLastMessages){
+            handleMessageResponse(addMessage, payload, chatRoomId);
+            alreadyFetchedLastMessages = true;
+        }
     })
 
     socketSubscribe('/topic/chatroom/' + chatRoomId, {id: 'chatroom-' + chatRoomId}, (payload) => {

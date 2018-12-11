@@ -3,8 +3,9 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import rootReducer from './reducers/RootReducer';
 import thunk from 'redux-thunk';
 import {socketMiddleware} from './SocketMiddleware';
+import appConfig from '../config/appConfig.json';
 
-const middleware = [thunk, socketMiddleware('http://localhost:8080/api/secure/endpoint')]
+const middleware = [thunk, socketMiddleware(appConfig.websocketEndpoint)];
 
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
 

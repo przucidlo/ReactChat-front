@@ -1,6 +1,7 @@
 {
     "url": "http://localhost:8080/",
     "apiUrl": "http://localhost:8080/api/",
+    "websocketEndpoint": "http://localhost:8080/api/secure/endpoint",
     "chatRefreshRate": 250,
     "chatRoomListRefreshRate": 500
 }

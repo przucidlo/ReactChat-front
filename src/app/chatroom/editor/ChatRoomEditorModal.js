@@ -74,6 +74,7 @@ class ChatRoomEditorModal extends Component {
         this.setState({
             modal: !this.state.modal
         })
+        this.clearAlert();
     }
 
     handleNameInput(event) {
@@ -92,6 +93,12 @@ class ChatRoomEditorModal extends Component {
         const alertClass = 'alert alert-' + type;
         this.setState({
             alert: <div className={alertClass} role='alert'>{message}</div>
+        })
+    }
+
+    clearAlert(){
+        this.setState({
+            alert: ''
         })
     }
 

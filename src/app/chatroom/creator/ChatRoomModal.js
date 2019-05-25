@@ -64,7 +64,8 @@ export default class ChatRoomModal extends Component {
     cleanInputs() {
         this.setState({
             nameInput: '',
-            descInput: ''
+            descInput: '',
+            alert: ''
         })
     }
 

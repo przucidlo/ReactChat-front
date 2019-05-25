@@ -8,7 +8,7 @@ class ChatRoomJoin extends Component {
     return (
       <div>
         <ChatRoomJoinModal ref='modal' />
-        <button type="button" class="btn btn-primary join-button" onClick={() => { this.refs.modal.getWrappedInstance().toggle() }}>Join</button>
+        <button type="button" class="btn-sml btn-success join-button" onClick={() => { this.refs.modal.getWrappedInstance().toggle() }}>Join</button>
       </div>
     )
   }
